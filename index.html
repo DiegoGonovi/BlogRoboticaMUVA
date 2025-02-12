@@ -2,13 +2,62 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Mi Blog en GitHub Pages</title>
+  <title>BlogRoboticaMUVA</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- Título principal -->
-  <h1>HOLA</h1>
+  <header>
+    <h1>BlogRoboticaMUVA</h1>
+    <nav>
+      <ul>
+        <li><a href="#post-2025-02-12">Post 1</a></li>
+        <li><a href="#post-2025-02-13">Post 2</a></li>
+        <!-- Agrega más enlaces si quieres llevar al usuario directo a cada post -->
+      </ul>
+    </nav>
+  </header>
 
-  <!-- Contenido opcional -->
-  <p>¡Bienvenido a mi blog en GitHub Pages!</p>
+  <main>
+    <!-- Texto de bienvenida o descripción general -->
+    <section class="intro">
+      <h2>¡Bienvenidos!</h2>
+      <p>
+        Este es el blog de robótica de MUVA, donde compartimos nuestras
+        experiencias, proyectos e información útil sobre tecnología.
+      </p>
+    </section>
+
+    <!-- Artículo 1 incrustado -->
+    <article id="post-2025-02-12">
+      <h2>Post: 12 de Febrero de 2025</h2>
+      <!-- Incrustar el contenido del post -->
+      <object 
+        data="posts/2025-02-12-mi-primer-post.html"
+        type="text/html" 
+        class="post-embed"
+      >
+        <!-- Fallback si object no funciona -->
+        <p>Tu navegador no soporta <code>object</code>. <a href="posts/2025-02-12-mi-primer-post.html" target="_blank">Ver post</a>.</p>
+      </object>
+    </article>
+
+    <!-- Artículo 2 incrustado -->
+    <article id="post-2025-02-13">
+      <h2>Post: 13 de Febrero de 2025</h2>
+      <object 
+        data="posts/2025-02-13-otro-post.html"
+        type="text/html" 
+        class="post-embed"
+      >
+        <p>Tu navegador no soporta <code>object</code>. <a href="posts/2025-02-13-otro-post.html" target="_blank">Ver post</a>.</p>
+      </object>
+    </article>
+
+    <!-- Agrega más <article> para cada nuevo post que crees en /posts/ -->
+  </main>
+
+  <footer>
+    <p>&copy; 2025 BlogRoboticaMUVA</p>
+  </footer>
 </body>
 </html>
