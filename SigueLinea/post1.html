@@ -96,31 +96,5 @@
   <footer>
     <!-- Contenido del footer -->
   </footer>
-
-  <script>
-    // Para cada elemento details con la clase "dia", cargamos el contenido desde el archivo externo cuando se abre
-    document.querySelectorAll('details.dia').forEach(detail => {
-      detail.addEventListener('toggle', function() {
-        if (this.open && !this.getAttribute('data-loaded')) {
-          const url = this.getAttribute('data-url');
-          fetch(url)
-            .then(response => {
-              if (!response.ok) {
-                throw new Error('Error al cargar el contenido');
-              }
-              return response.text();
-            })
-            .then(data => {
-              this.querySelector('.dia-content').innerHTML = data;
-              this.setAttribute('data-loaded', 'true'); // Evitamos recargar si ya se cargó
-            })
-            .catch(error => {
-              this.querySelector('.dia-content').innerHTML = 'No se pudo cargar el contenido.';
-              console.error(error);
-            });
-        }
-      });
-    });
-  </script>
 </body>
 </html>
