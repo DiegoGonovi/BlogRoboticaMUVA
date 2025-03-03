@@ -5,92 +5,122 @@
   <title>Coche Sigue Línea</title>
   <link rel="stylesheet" href="../style.css" />
   <style>
-    /* Estilos para los botones de los días */
-    .dias-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-top: 20px;
-    }
-    
-    .dia-box {
+    /* Estilos para cada caja desplegable */
+    details.dia {
       width: 80%;
       max-width: 600px;
       background-color: #f4f4f4;
       border-radius: 8px;
-      padding: 15px;
       margin: 10px 0;
-      text-align: center;
+      padding: 15px;
+      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s ease;
+    }
+    details.dia[open] {
+      background-color: #e2e2e2;
+    }
+    details.dia summary {
+      cursor: pointer;
       font-size: 18px;
       font-weight: bold;
-      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-      transition: background-color 0.3s ease, transform 0.2s ease;
+      list-style: none;
+      outline: none;
+      position: relative;
+      padding-left: 25px;
     }
-
-    .dia-box a {
-      text-decoration: none;
-      color: #333;
-      display: block;
+    details.dia summary::-webkit-details-marker {
+      display: none;
     }
-
-    .dia-box:hover {
-      background-color: #ddd;
-      transform: scale(1.05);
+    details.dia summary:before {
+      content: '►';
+      position: absolute;
+      left: 0;
+      transition: transform 0.3s ease;
+    }
+    details.dia[open] summary:before {
+      transform: rotate(90deg);
+    }
+    /* Estilo para el contenedor del contenido cargado */
+    .dia-content {
+      margin-top: 10px;
+      font-size: 16px;
+      line-height: 1.5;
     }
   </style>
 </head>
 <body>
-  <header>
+  <header id="top">
     <div style="display: flex; justify-content: space-between; align-items: center;">
       <h1>Coche Sigue Línea</h1>
       <p>Blog Robótica MUVA Diego González Oviaño</p>
     </div>
     <nav>
-      <!-- Aquí puedes agregar los enlaces de navegación -->
+      <!-- Enlaces de navegación -->
     </nav>
   </header>
 
   <main>
-    <!-- Sección de bienvenida con imagen centrada -->
     <section class="intro">
       <img src="img/portada.png" alt="Bienvenidos" style="max-width: 100%; height: auto; display: block; margin: 0 auto;">
     </section>
 
-    <!-- Sección de explicación -->
     <section class="dias">
-      <p>El objetivo de este ejercicio es implementar un control reactivo PID para regular la velocidad y la dirección del coche, 
-        permitiéndole seguir con precisión la línea trazada en el circuito de carreras.<br>
-        A continuación, se presenta un desglose de los avances realizados día a día. Para ver el trabajo desarrollado en cada jornada, 
-        haz clic en la sección correspondiente.</p>
-      
-      <!-- Sección de días con enlaces a los archivos correspondientes -->
+      <p>
+        El objetivo de este ejercicio es implementar un control reactivo PID para regular la velocidad y la dirección del coche, permitiéndole seguir con precisión la línea trazada en el circuito de carreras.<br>
+        A continuación, se presenta un desglose de los avances realizados día a día. Haz clic en cada día para desplegar el contenido.
+      </p>
+
       <div class="dias-container">
-        <div class="dia-box">
-          <a href="dia1.html">Día 1</a>
-        </div>
-        <div class="dia-box">
-          <a href="dia2.html">Día 2</a>
-        </div>
-        <div class="dia-box">
-          <a href="dia3.html">Día 3</a>
-        </div>
+        <!-- Cada <details> tiene un atributo data-url con la ruta al archivo que contiene el contenido -->
+        <details class="dia" data-url="dia1.html">
+          <summary>Día 1</summary>
+          <div class="dia-content">Cargando contenido...</div>
+        </details>
+        <details class="dia" data-url="dia2.html">
+          <summary>Día 2</summary>
+          <div class="dia-content">Cargando contenido...</div>
+        </details>
+        <details class="dia" data-url="dia3.html">
+          <summary>Día 3</summary>
+          <div class="dia-content">Cargando contenido...</div>
+        </details>
       </div>
     </section>
 
     <!-- Botón para volver al inicio -->
     <div style="text-align: center; margin-top: 20px;">
-      <a href="#top" class="back-to-top">Volver al inicio</a>
+      <a href="#top" class="back-to-top" style="display: inline-block; padding: 10px 20px; background-color: #007BFF; color: #fff; text-decoration: none; border-radius: 5px;">Volver al inicio</a>
     </div>
   </main>
 
   <footer>
     <!-- Contenido del footer -->
   </footer>
-</body>
-</html>
 
-
-    <!-- Contenido del footer -->
-  </footer>
+  <script>
+    // Para cada elemento details con la clase "dia", cargamos el contenido desde el archivo externo cuando se abre
+    document.querySelectorAll('details.dia').forEach(detail => {
+      detail.addEventListener('toggle', function() {
+        if (this.open && !this.getAttribute('data-loaded')) {
+          const url = this.getAttribute('data-url');
+          fetch(url)
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('Error al cargar el contenido');
+              }
+              return response.text();
+            })
+            .then(data => {
+              this.querySelector('.dia-content').innerHTML = data;
+              this.setAttribute('data-loaded', 'true'); // Evitamos recargar si ya se cargó
+            })
+            .catch(error => {
+              this.querySelector('.dia-content').innerHTML = 'No se pudo cargar el contenido.';
+              console.error(error);
+            });
+        }
+      });
+    });
+  </script>
 </body>
 </html>
