@@ -4,22 +4,38 @@
   <meta charset="UTF-8">
   <title>Coche Sigue Línea</title>
   <link rel="stylesheet" href="../style.css" />
+  <style>
+    /* Ejemplo de estilo para el botón de volver al inicio */
+    .back-to-top {
+      display: inline-block;
+      padding: 10px 20px;
+      margin: 20px auto;
+      background-color: #007BFF;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      text-align: center;
+    }
+    .back-to-top:hover {
+      background-color: #0056b3;
+    }
+  </style>
 </head>
 <body>
- <header>
-  <div style="display: flex; justify-content: space-between; align-items: center;">
-    <h1>Coche Sigue Línea</h1>
-    <p>Blog Robótica MUVA Diego González Oviaño</p>
-  </div>
+  <header id="top">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <h1>Coche Sigue Línea</h1>
+      <p>Blog Robótica MUVA Diego González Oviaño</p>
+    </div>
     <nav>
       <!-- Aquí puedes agregar los enlaces de navegación -->
     </nav>
   </header>
 
   <main>
-    <!-- Texto de bienvenida o descripción general -->
+    <!-- Sección de bienvenida con imagen centrada -->
     <section class="intro">
-      <img src="img/portada.png" alt="Bienvenidos" style="max-width: 100%; height: auto;">
+      <img src="img/portada.png" alt="Bienvenidos" style="max-width: 100%; height: auto; display: block; margin: 0 auto;">
     </section>
 
     <!-- Sección de días con cajas desplegables -->
@@ -38,6 +54,11 @@
         <p>Contenido del Día 3: aquí puedes incluir el detalle o el código correspondiente al tercer ejercicio.</p>
       </details>
     </section>
+
+    <!-- Botón para volver al inicio -->
+    <div style="text-align: center;">
+      <a href="../index.html" class="back-to-top">Volver al inicio</a>
+    </div>
   </main>
 
   <footer>
