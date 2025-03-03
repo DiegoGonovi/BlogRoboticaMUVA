@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Día 1 - Avances en Control Reactivo PID</title>
+  <link rel="stylesheet" href="../style.css" />
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -11,29 +12,9 @@
       margin: 20px;
       line-height: 1.5;
     }
-    header, footer {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    header h1 {
-      font-size: 24px;
-      margin-bottom: 5px;
-    }
-    header p {
-      font-size: 16px;
-      color: #555;
-    }
     main {
       max-width: 800px;
       margin: 0 auto;
-    }
-    section {
-      margin-bottom: 30px;
-    }
-    h2 {
-      font-size: 20px;
-      margin-bottom: 10px;
-      color: #222;
     }
     p {
       font-size: 16px;
@@ -61,47 +42,32 @@
   </style>
 </head>
 <body>
-  <header>
-    <h1>Día 1 - Avances en Control Reactivo PID</h1>
-    <p>Seguimiento de línea en el circuito de carreras</p>
-  </header>
-  
   <main>
-    <section>
-      <h2>Importación y Configuración Inicial</h2>
-      <p>Se establecieron las bases del proyecto importando las librerías necesarias para el procesamiento de imágenes y el control del vehículo, y se definieron las variables y parámetros del controlador.</p>
-    </section>
-    
-    <section>
-      <h2>Captura de Imagen y Selección de la Región de Interés</h2>
-      <p>Se capturó la imagen desde la cámara y se definió una región del horizonte para enfocar el análisis, descartando áreas que no aportaban información relevante para el seguimiento de la línea.</p>
-      <img src="../img/horizonte.png" alt="Definición de la región del horizonte">
-    </section>
-    
-    <section>
-      <h2>Procesamiento de Imagen y Detección de la Línea</h2>
-      <p>La imagen se transformó al espacio HSV y se aplicó una máscara para detectar el color de la línea, permitiendo extraer los contornos de la zona de interés.</p>
-      <img src="../img/hsv1.png" alt="Imagen convertida a HSV">
-      <img src="../img/mask1.png" alt="Máscara para la detección de la línea">
-    </section>
-    
-    <section>
-      <h2>Cálculo del Centroide y Ajuste del Control</h2>
-      <p>Se calculó el centroide del contorno principal para determinar el error en relación al centro de la imagen. Estos datos se emplearon para ajustar la dirección y velocidad del vehículo mediante un controlador PD.</p>
-      <img src="../img/pantallafinal.png" alt="Visualización del centroide en la imagen">
-    </section>
-    
-    <section>
-      <h2>Visualización y Resultados</h2>
-      <p>Finalmente, se mostró la imagen procesada en tiempo real, incluyendo indicadores gráficos que reflejan el error, la velocidad y la dirección calculada, permitiendo evaluar el desempeño del sistema.</p>
-      <img src="../img/tiempo1.png" alt="Visualización en tiempo real del control">
-    </section>
-    
+    <p>
+      Durante este primer día se han llevado a cabo diversas tareas fundamentales para la implementación del control reactivo PID, que permitirá al vehículo seguir la línea trazada en el circuito de carreras.
+    </p>
+    <p>
+      <strong>Importación y Configuración Inicial:</strong> Se establecieron las bases del proyecto importando las librerías necesarias para el procesamiento de imágenes y el control del vehículo, definiendo las variables y parámetros del controlador.
+    </p>
+    <p>
+      <strong>Captura de Imagen y Selección de la Región de Interés:</strong> Se capturó la imagen desde la cámara y se seleccionó una región del horizonte que enfoca el análisis, descartando áreas no relevantes.
+    </p>
+    <img src="../img/horizonte.png" alt="Definición de la región del horizonte">
+    <p>
+      <strong>Procesamiento de Imagen y Detección de la Línea:</strong> La imagen fue transformada al espacio HSV y se aplicó una máscara para detectar el color de la línea, extrayendo los contornos de la zona de interés.
+    </p>
+    <img src="../img/hsv1.png" alt="Imagen convertida a HSV">
+    <img src="../img/mask1.png" alt="Máscara para la detección de la línea">
+    <p>
+      <strong>Cálculo del Centroide y Ajuste del Control:</strong> Se calculó el centroide del contorno principal para determinar el error respecto al centro de la imagen. Estos datos se utilizaron para ajustar la dirección y la velocidad del vehículo mediante un controlador PD.
+    </p>
+    <img src="../img/pantallafinal.png" alt="Visualización del centroide en la imagen">
+    <p>
+      <strong>Visualización y Resultados:</strong> Finalmente, se mostró la imagen procesada en tiempo real, con indicadores gráficos que reflejan el error, la velocidad y la dirección calculada, lo que permitió evaluar el desempeño del sistema.
+    </p>
+    <img src="../img/tiempo1.png" alt="Visualización en tiempo real del control">
     <a href="index.html" class="back-link">Volver a la página principal</a>
   </main>
-  
-  <footer>
-    <p>&copy; 2025 Blog Robótica MUVA - Diego González Oviaño</p>
-  </footer>
 </body>
 </html>
+
