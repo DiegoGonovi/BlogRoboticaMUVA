@@ -5,24 +5,42 @@
   <title>Coche Sigue Línea</title>
   <link rel="stylesheet" href="../style.css" />
   <style>
-    /* Ejemplo de estilo para el botón de volver al inicio */
-    .back-to-top {
-      display: inline-block;
-      padding: 10px 20px;
-      margin: 20px auto;
-      background-color: #007BFF;
-      color: white;
-      text-decoration: none;
-      border-radius: 5px;
-      text-align: center;
+    /* Estilos para los botones de los días */
+    .dias-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 20px;
     }
-    .back-to-top:hover {
-      background-color: #0056b3;
+    
+    .dia-box {
+      width: 80%;
+      max-width: 600px;
+      background-color: #f4f4f4;
+      border-radius: 8px;
+      padding: 15px;
+      margin: 10px 0;
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .dia-box a {
+      text-decoration: none;
+      color: #333;
+      display: block;
+    }
+
+    .dia-box:hover {
+      background-color: #ddd;
+      transform: scale(1.05);
     }
   </style>
 </head>
 <body>
-  <header id="top">
+  <header>
     <div style="display: flex; justify-content: space-between; align-items: center;">
       <h1>Coche Sigue Línea</h1>
       <p>Blog Robótica MUVA Diego González Oviaño</p>
@@ -38,26 +56,30 @@
       <img src="img/portada.png" alt="Bienvenidos" style="max-width: 100%; height: auto; display: block; margin: 0 auto;">
     </section>
 
-    <!-- Sección de días con cajas desplegables -->
+    <!-- Sección de explicación -->
     <section class="dias">
-      <h3>Ejercicios por Día</h3>
-      <details>
-        <summary>Día 1</summary>
-        <p>Contenido del Día 1: aquí puedes incluir el detalle o el código correspondiente al primer ejercicio.</p>
-      </details>
-      <details>
-        <summary>Día 2</summary>
-        <p>Contenido del Día 2: aquí puedes incluir el detalle o el código correspondiente al segundo ejercicio.</p>
-      </details>
-      <details>
-        <summary>Día 3</summary>
-        <p>Contenido del Día 3: aquí puedes incluir el detalle o el código correspondiente al tercer ejercicio.</p>
-      </details>
+      <p>El objetivo de este ejercicio es implementar un control reactivo PID para regular la velocidad y la dirección del coche, 
+        permitiéndole seguir con precisión la línea trazada en el circuito de carreras.<br>
+        A continuación, se presenta un desglose de los avances realizados día a día. Para ver el trabajo desarrollado en cada jornada, 
+        haz clic en la sección correspondiente.</p>
+      
+      <!-- Sección de días con enlaces a los archivos correspondientes -->
+      <div class="dias-container">
+        <div class="dia-box">
+          <a href="dia1.html">Día 1</a>
+        </div>
+        <div class="dia-box">
+          <a href="dia2.html">Día 2</a>
+        </div>
+        <div class="dia-box">
+          <a href="dia3.html">Día 3</a>
+        </div>
+      </div>
     </section>
 
     <!-- Botón para volver al inicio -->
-    <div style="text-align: center;">
-      <a href="../index.html" class="back-to-top">Volver al inicio</a>
+    <div style="text-align: center; margin-top: 20px;">
+      <a href="#top" class="back-to-top">Volver al inicio</a>
     </div>
   </main>
 
@@ -66,6 +88,7 @@
   </footer>
 </body>
 </html>
+
 
     <!-- Contenido del footer -->
   </footer>
