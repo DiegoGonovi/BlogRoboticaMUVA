@@ -2,42 +2,49 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Día 1 - Avances en Control Reactivo PID</title>
+  <title>Coche Sigue Línea</title>
   <link rel="stylesheet" href="../style.css" />
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #fff;
-      color: #333;
-      margin: 20px;
-      line-height: 1.5;
+    /* Estilos para cada caja desplegable */
+    details.dia {
+      width: 98%;
+      max-width: 1000px;
+      background-color: #f4f4f4;
+      border-radius: 8px;
+      margin: 10px 0;
+      padding: 15px;
+      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s ease;
     }
-    main {
-      max-width: 800px;
-      margin: 0 auto;
+    details.dia[open] {
+      background-color: #e2e2e2;
     }
-    p {
-      font-size: 16px;
-      margin-bottom: 10px;
-    }
-    img {
-      max-width: 100%;
-      height: auto;
-      display: block;
-      margin: 10px auto;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-    .back-link {
-      display: block;
-      text-align: center;
-      margin-top: 20px;
-      text-decoration: none;
-      color: #007BFF;
+    details.dia summary {
+      cursor: pointer;
+      font-size: 18px;
       font-weight: bold;
+      list-style: none;
+      outline: none;
+      position: relative;
+      padding-left: 25px;
     }
-    .back-link:hover {
-      text-decoration: underline;
+    details.dia summary::-webkit-details-marker {
+      display: none;
+    }
+    details.dia summary:before {
+      content: '►';
+      position: absolute;
+      left: 0;
+      transition: transform 0.3s ease;
+    }
+    details.dia[open] summary:before {
+      transform: rotate(90deg);
+    }
+    /* Estilo para el contenedor del contenido cargado */
+    .dia-content {
+      margin-top: 10px;
+      font-size: 16px;
+      line-height: 1.5;
     }
   </style>
 </head>
