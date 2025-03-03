@@ -3,34 +3,41 @@
 <head>
   <meta charset="UTF-8">
   <title>Día 1 - Avances en Control Reactivo PID</title>
-  <link rel="stylesheet" href="../style.css" />
   <style>
     body {
       font-family: Arial, sans-serif;
+      background-color: #fff;
+      color: #333;
       margin: 20px;
-      line-height: 1.6;
+      line-height: 1.5;
     }
     header, footer {
       text-align: center;
       margin-bottom: 20px;
     }
-    h1, h2 {
-      color: #333;
+    header h1 {
+      font-size: 24px;
+      margin-bottom: 5px;
     }
-    .step {
+    header p {
+      font-size: 16px;
+      color: #555;
+    }
+    main {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    section {
       margin-bottom: 30px;
-      border-bottom: 1px solid #ddd;
-      padding-bottom: 20px;
     }
-    pre {
-      background-color: #f4f4f4;
-      padding: 10px;
-      border-radius: 5px;
-      overflow: auto;
+    h2 {
+      font-size: 20px;
+      margin-bottom: 10px;
+      color: #222;
     }
-    pre code {
-      font-family: Consolas, "Courier New", monospace;
-      font-size: 14px;
+    p {
+      font-size: 16px;
+      margin-bottom: 10px;
     }
     img {
       max-width: 100%;
@@ -38,182 +45,63 @@
       display: block;
       margin: 10px auto;
       border: 1px solid #ccc;
-      border-radius: 5px;
+      border-radius: 4px;
     }
-    .back-to-main {
-      display: inline-block;
-      padding: 10px 20px;
-      background-color: #007BFF;
-      color: #fff;
-      text-decoration: none;
-      border-radius: 5px;
+    .back-link {
+      display: block;
+      text-align: center;
       margin-top: 20px;
+      text-decoration: none;
+      color: #007BFF;
+      font-weight: bold;
     }
-    .back-to-main:hover {
-      background-color: #0056b3;
+    .back-link:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
   <header>
     <h1>Día 1 - Avances en Control Reactivo PID</h1>
-    <p>Implementación del seguimiento de línea en el circuito de carreras</p>
+    <p>Seguimiento de línea en el circuito de carreras</p>
   </header>
-
+  
   <main>
-    <!-- Paso 1 -->
-    <section class="step">
-      <h2>Paso 1: Importación de librerías y configuración inicial</h2>
-      <p>Se importan las librerías necesarias para el control y procesamiento de imágenes, además de establecer la configuración inicial.</p>
-      <pre><code>import GUI
-import HAL
-import cv2.cv2 as cv2
-import numpy as np</code></pre>
+    <section>
+      <h2>Importación y Configuración Inicial</h2>
+      <p>Se establecieron las bases del proyecto importando las librerías necesarias para el procesamiento de imágenes y el control del vehículo, y se definieron las variables y parámetros del controlador.</p>
     </section>
-
-    <!-- Paso 2 -->
-    <section class="step">
-      <h2>Paso 2: Definición de funciones PD</h2>
-      <p>Se definen dos funciones para calcular el control PD, una para el ángulo (dirección) y otra para la velocidad.</p>
-      <pre><code>def pd_angular(error_w, error_pre_w, Kp_w, Kd_w):
-    d_w = error_w - error_pre_w
-    w = -Kp_w * error_w - Kd_w * d_w
-    return w, error_w
-
-def pd_velocidad(error_v, error_pre_v, Kp_v, Kd_v, min_v, max_v): 
-    d_v = error_v - error_pre_v
-    v = max_v - (Kp_v * abs(error_v) + Kd_v * abs(d_v))
-    return max(min_v, v), error_v</code></pre>
+    
+    <section>
+      <h2>Captura de Imagen y Selección de la Región de Interés</h2>
+      <p>Se capturó la imagen desde la cámara y se definió una región del horizonte para enfocar el análisis, descartando áreas que no aportaban información relevante para el seguimiento de la línea.</p>
+      <img src="../img/horizonte.png" alt="Definición de la región del horizonte">
     </section>
-
-    <!-- Paso 3 -->
-    <section class="step">
-      <h2>Paso 3: Configuración de parámetros</h2>
-      <p>Se inicializan las variables de error, los parámetros del controlador y los límites de velocidad, además de definir el rango de color para detectar la línea.</p>
-      <pre><code>error_pre_w = 0
-error_pre_v = 0
-Kp_w = 0.01  # Ajusta según el comportamiento deseado
-Kd_w = 0.009  # Ajusta según el comportamiento deseado
-Kp_v = 0.1   # Ajusta según el comportamiento deseado
-Kd_v = 0.0002
-
-lower_red = np.array([0, 54, 115])
-upper_red = np.array([3, 219, 255])
-
-v_min = 5
-v_max = 17
-w = 0</code></pre>
+    
+    <section>
+      <h2>Procesamiento de Imagen y Detección de la Línea</h2>
+      <p>La imagen se transformó al espacio HSV y se aplicó una máscara para detectar el color de la línea, permitiendo extraer los contornos de la zona de interés.</p>
+      <img src="../img/hsv1.png" alt="Imagen convertida a HSV">
+      <img src="../img/mask1.png" alt="Máscara para la detección de la línea">
     </section>
-
-    <!-- Paso 4 -->
-    <section class="step">
-      <h2>Paso 4: Captura y procesamiento de la imagen</h2>
-      <p>Se captura la imagen desde la cámara y se define una región de interés (ROI) centrada en la franja del horizonte para enfocar el análisis.</p>
-      <img src="../img/horizonte.png" alt="Definición del horizonte">
-      <pre><code>while True:
-    image = HAL.getImage()
-
-    h, wi, c = image.shape
-    # Crear una imagen negra del mismo tamaño
-    roi = np.zeros((h, wi, c), dtype=np.uint8)
-
-    # Calcular la franja del horizonte
-    band_ = int(h * 0.2)
-    hrzn_y_s = (h - band_) // 2
-    hrzn_y_e = hrzn_y_s + band_
-
-    # Copiar solo la franja del horizonte en la imagen negra
-    roi[hrzn_y_s:hrzn_y_e, :] = image[hrzn_y_s:hrzn_y_e, :]</code></pre>
+    
+    <section>
+      <h2>Cálculo del Centroide y Ajuste del Control</h2>
+      <p>Se calculó el centroide del contorno principal para determinar el error en relación al centro de la imagen. Estos datos se emplearon para ajustar la dirección y velocidad del vehículo mediante un controlador PD.</p>
+      <img src="../img/pantallafinal.png" alt="Visualización del centroide en la imagen">
     </section>
-
-    <!-- Paso 5 -->
-    <section class="step">
-      <h2>Paso 5: Procesamiento HSV y detección de la línea</h2>
-      <p>La imagen ROI se convierte al espacio HSV y se crea una máscara para detectar el color de la línea. Luego se extraen los contornos.</p>
-      <img src="img/hsv1.png" alt="Imagen convertida a HSV">
-      <img src="img/mask1.png" alt="Máscara aplicada para detectar la línea">
-      <pre><code>hsv = cv2.cvtColor(roi, cv2.COLOR_BGR2HSV)
-mask = cv2.inRange(hsv, lower_red, upper_red)
-
-contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-
-if not contours:
-    break
-
-max_contour = max(contours, key=cv2.contourArea)</code></pre>
+    
+    <section>
+      <h2>Visualización y Resultados</h2>
+      <p>Finalmente, se mostró la imagen procesada en tiempo real, incluyendo indicadores gráficos que reflejan el error, la velocidad y la dirección calculada, permitiendo evaluar el desempeño del sistema.</p>
+      <img src="../img/tiempo1.png" alt="Visualización en tiempo real del control">
     </section>
-
-    <!-- Paso 6 -->
-    <section class="step">
-      <h2>Paso 6: Cálculo del centroide y errores</h2>
-      <p>Se calcula el centroide del contorno mayor y se determina el error respecto al centro de la imagen, que servirá para ajustar la dirección del vehículo.</p>
-      <img src="img/pantallafinal.png" alt="Visualización del centroide y contorno">
-      <pre><code>M = cv2.moments(max_contour)
-cx = int(M["m10"] / M["m00"])
-cy = int(M["m01"] / M["m00"])
-
-# Calcular el error: diferencia entre el centroide y el centro de la imagen
-error_w = cx - (wi // 2) + 1  # Corrección de px
-
-w, error_pre_w = pd_angular(error_w, error_pre_w, Kp_w, Kd_w)
-v, error_pre_v = pd_velocidad(error_w, error_pre_v, Kp_v, Kd_v, v_min, v_max)</code></pre>
-    </section>
-
-    <!-- Paso 7 -->
-    <section class="step">
-      <h2>Paso 7: Visualización y control</h2>
-      <p>Se visualiza la imagen con el centroide y se muestran los valores de error, velocidad y dirección. También se dibuja una línea central para referencia.</p>
-      <img src="img/tiempo1.png" alt="Visualización del control en tiempo real">
-      <pre><code>cv2.circle(image, (cx, cy), 5, (0, 255, 255), -1)
-
-cv2.putText(
-    image,
-    "Er: " + str(error_w),
-    (10, 310),
-    cv2.FONT_HERSHEY_SIMPLEX,
-    0.5,
-    (0, 255, 255),
-    2,
-)
-cv2.putText(
-    image,
-    "w: " + str(w),
-    (10, 340),
-    cv2.FONT_HERSHEY_SIMPLEX,
-    0.5,
-    (0, 255, 255),
-    2,
-)
-cv2.putText(
-    image,
-    "v: " + str(v),
-    (10, 370),
-    cv2.FONT_HERSHEY_SIMPLEX,
-    0.5,
-    (0, 255, 255),
-    2,
-)
-cv2.line(image, (wi // 2 + 1, 0), (wi // 2 + 1, h), (255, 0, 0), 2)
-
-GUI.showImage(image)
-HAL.setV(0)
-HAL.setW(0)</code></pre>
-    </section>
-
-    <!-- Paso 8 -->
-    <section class="step">
-      <h2>Paso 8: Conclusiones y próximos pasos</h2>
-      <p>En este primer día se ha implementado y probado el control reactivo PID para seguir la línea. Se realizaron ajustes en los parámetros y se analizaron los resultados para planificar mejoras futuras.</p>
-    </section>
-
-    <!-- Botón para volver a la página principal -->
-    <div style="text-align: center;">
-      <a href="index.html" class="back-to-main">Volver a la página principal</a>
-    </div>
+    
+    <a href="index.html" class="back-link">Volver a la página principal</a>
   </main>
-
+  
   <footer>
-    <p>© 2025 Blog Robótica MUVA - Diego González Oviaño</p>
+    <p>&copy; 2025 Blog Robótica MUVA - Diego González Oviaño</p>
   </footer>
 </body>
 </html>
