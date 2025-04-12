@@ -122,7 +122,7 @@ const postSeries = content.data.seriesId
 			<Icon aria-hidden="true" class="flex-shrink-0 inline-block h-6 w-6 text-accent-base" focusable="false" name="solar:tag-line-duotone" />	
 			<>
 				{content.data.tags.map((tag) => (
-					<a aria-label={`View all posts with the tag: ${tag}`} href={`/tags/${tag}`}>
+					<a aria-label={`View all posts with the tag: ${tag}`} href={`/BlogRoboticaMUVA/tags/${tag}`}>
 						<Badge variant="accent-two" title={tag} />
 					</a>
 				))}
@@ -140,7 +140,7 @@ const postSeries = content.data.seriesId
 				<Icon aria-hidden="true" class="flex-shrink-0 inline-block h-6 w-6 text-accent-base" focusable="false" name="solar:notes-line-duotone" />
 				<a 
 					aria-label={`About ${postSeries.data.title} series`} 
-					href={`/series/${postSeries.id}`}
+					href={`/BlogRoboticaMUVA/series/${postSeries.id}`}
 					class="flex items-center gap-2 flex-wrap"
 				>
 					<Badge variant="accent-base" showHash={false} title={postSeries.data.title} />

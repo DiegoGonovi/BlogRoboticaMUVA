@@ -22,12 +22,12 @@ const meta = {
 					<a
 						class="citrus-link inline-block"
 						data-astro-prefetch
-						href={`/tags/${tag}/`}
+						href={`/BlogRoboticaMUVA/tags/${tag}/`}
 						title={`View posts with the tag: ${tag}`}
 					>
 						&#35;{tag}
 					</a>
-					<a aria-label={`View all posts with the tag: ${tag}`} href={`/tags/${tag}`}>
+					<a aria-label={`View all posts with the tag: ${tag}`} href={`/BlogRoboticaMUVA/tags/${tag}`}>
 						<Badge variant="accent-two" title={tag}>
 							{tag}
 						</Badge>
@@ -44,7 +44,7 @@ const meta = {
 		{
 			allTags.map(([tag, val]) => (
 			<div class="flex items-center gap-x-2">
-				<a aria-label={`View all posts with the tag: ${tag}`} href={`/tags/${tag}`}>
+				<a aria-label={`View all posts with the tag: ${tag}`} href={`/BlogRoboticaMUVA/tags/${tag}`}>
 				<Badge variant="muted" title={tag}>
 					<span class="text-xs font-normal">
 						&nbsp;{val} post{val > 1 && "s"}

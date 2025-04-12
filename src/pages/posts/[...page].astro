@@ -54,7 +54,7 @@ const descYearKeys = Object.keys(groupedByYear).sort((a, b) => +b - +a);
 <PageLayout meta={meta}>
 	<h1 class="title mb-6 flex items-center gap-2">
 		Posts
-		<a class="text-accent-two" href="/rss.xml" target="_blank">
+		<a class="text-accent-two" href="/BlogRoboticaMUVA/rss.xml" target="_blank">
 			<span class="sr-only">RSS feed</span>
 			<Icon aria-hidden="true" class="h-6 w-6" focusable="false" name="mdi:rss" />
 		</a>
@@ -88,7 +88,7 @@ const descYearKeys = Object.keys(groupedByYear).sort((a, b) => +b - +a);
 					<ul class="flex flex-wrap gap-2">
 						{uniqueTags.map((tag) => (
 							<li>
-								<a aria-label={`View all posts with the tag: ${tag}`} href={`/tags/${tag}`}>
+								<a aria-label={`View all posts with the tag: ${tag}`} href={`/BlogRoboticaMUVA/tags/${tag}`}>
 									<Badge variant="muted" title={tag} />
 								</a>
 							</li>
@@ -98,7 +98,7 @@ const descYearKeys = Object.keys(groupedByYear).sort((a, b) => +b - +a);
 							<a
 								aria-label="View all blog categories"
 								class="font-medium text-accent sm:hover:text-accent-two"
-								href="/tags/"
+								href="/BlogRoboticaMUVA/tags/"
 							>
 								View all →
 							</a>
@@ -109,7 +109,7 @@ const descYearKeys = Object.keys(groupedByYear).sort((a, b) => +b - +a);
 						<a
 							aria-label="View all blog categories"
 							class="font-medium text-accent sm:hover:text-accent-two"
-							href="/tags/"
+							href="/BlogRoboticaMUVA/tags/"
 						>
 							View all →
 						</a>
