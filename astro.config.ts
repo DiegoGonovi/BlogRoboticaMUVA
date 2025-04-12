@@ -116,6 +116,7 @@ export default defineConfig({
   prefetch: true,
   // ! Please remember to replace the following site property with your own domain
   site: "http://https://diegogonovi.github.io",
+  base: "BlogRoboticaMUVA",
   vite: {
     build: {
       sourcemap: true, // Source maps generation
