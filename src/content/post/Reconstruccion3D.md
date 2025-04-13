@@ -91,3 +91,23 @@ La ubicación que devuelve el valor máximo de correlación dentro de esa franja
 ![Homologo](./images_post/3D/homol.png)
 
 ## Triangulación y Generación de la Nube de Puntos Tridimensional
+
+La triangulación es el paso final para obtener las coordenadas 3D de un punto de la escena una vez que se ha encontrado su correspondencia en ambas imágenes. Se parte de las posiciones 3D de los centros ópticos de las cámaras y de los vectores directores que definen los rayos 3D desde cada centro hacia el punto característico en su respectiva imagen. 
+
+Idealmente, estos rayos se cruzarían en el punto 3D buscado, pero en la práctica, debido a errores, no se suelen cortar. De tal forma, se calcula el punto 3D de distancia mínima entre ambas rectas.
+
+$$ R_{left} = c_l + t * v_1 \\
+ R_{right} = c_r + \mu * v_2 \\
+ w_0 = c_r - cl $$
+
+Para encontrar los puntos en cada recta que minimizan la distancia entre ellas, se imponen las condiciones basadas en la ortogonalidad del vector que une dichos puntos con respecto a las direcciones de las rectas. Esto conduce al siguiente sistema de ecuaciones.
+
+$$ t \, ({v_1} \cdot {v_1}) - s \, ({v_1} \cdot {v_2}) = -({v_1} \cdot {w_0}) \\
+
+t \, ({v_1} \cdot {v_2}) - s \, ({v_2} \cdot {v_2}) = -({v_2} \cdot {w_0})
+
+$$
+
+Una vez obtenidos t y s, se calculan los puntos en cada recta y la estimación final de la coordenada 3D se toma como el punto medio del segmento los une. 
+
+Para minimizar los outliers se situa un umbral de error en 10 milímetros, descartando todas aquellas distancias mayores de estas.
