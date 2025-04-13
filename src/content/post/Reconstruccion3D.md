@@ -23,7 +23,7 @@ La visión estéreo usa dos cámaras que capturan la escena desde ángulos liger
 A esta configuración ideal se le llama canónica, y al par de imágenes que cumplen estas condiciones se les llama imágenes estéreo rectificadas. Esta alineación simplifica mucho la búsqueda de puntos correspondientes, ya que solo hay que buscar a lo largo de la misma fila en la otra imagen. En la Figura 1, se representa dicha configuración junto a sus centros ópticos, la línea epipolar resultantes y la localización tridimensional de un punto característico. 
 
 ![Epipolar geometric](./images_post/3D/Epipolar-geometry.png)
-**_Figura 1_**: Geometría epipolar \\
+**_Figura 1_**: Geometría epipolar \
 _[Adil, Elmehdi & Mikou, Mohammed & Mouhsen, Ahmed. (2022). A novel algorithm for distance measurement using stereo camera. CAAI Transactions on Intelligence Technology. 7. n/a-n/a. 10.1049/cit2.12098.]_
 
 Por tanto, el primer paso constituye en extraer las imágenes correspondientes a las cámaras que observann la escena. 
