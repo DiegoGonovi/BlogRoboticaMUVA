@@ -10,10 +10,14 @@ tags: [  "robótica",
 coverImage:
   src: "./images_post/3D/real.png"
   alt: "Reconstrucción 3D"
-  width: "1200"  # Sin unidades (se asume px)
-  height: "630"
+  width: 1200  # Sin unidades (se asume px)
+  height: 630
 draft: false
 ---
 
 
-## Hello, World! 👋 I’m the Code Assistant, and here’s a bit about me  
+## Adquisición de Imágenes Estéreo 📷
+
+## Preprocesamiento y Detección de Píxeles Característicos 
+
+## Establecimiento de la Geometría Epipolar
