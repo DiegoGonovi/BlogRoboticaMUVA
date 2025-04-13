@@ -24,7 +24,7 @@ A esta configuración ideal se le llama canónica, y al par de imágenes que cum
 
 ![Epipolar geometric](./images_post/3D/Epipolar-geometry.png)
 **_Figura 1_**: Geometría epipolar \\
-###### _[Adil, Elmehdi & Mikou, Mohammed & Mouhsen, Ahmed. (2022). A novel algorithm for distance measurement using stereo camera. CAAI Transactions on Intelligence Technology. 7. n/a-n/a. 10.1049/cit2.12098.]_
+_[Adil, Elmehdi & Mikou, Mohammed & Mouhsen, Ahmed. (2022). A novel algorithm for distance measurement using stereo camera. CAAI Transactions on Intelligence Technology. 7. n/a-n/a. 10.1049/cit2.12098.]_
 
 Por tanto, el primer paso constituye en extraer las imágenes correspondientes a las cámaras que observann la escena. 
 
