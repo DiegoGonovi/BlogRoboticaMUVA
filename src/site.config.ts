@@ -29,15 +29,7 @@ export const menuLinks: { path: string; title: string }[] = [
 		title: "Home",
 	},
 	{
-		path: "/BlogRoboticaMUVA/about/",
-		title: "About",
-	},
-	{
 		path: "/BlogRoboticaMUVA/posts/",
 		title: "Blog",
-	},
-	{
-		path: "/BlogRoboticaMUVA/notes/",
-		title: "Notes",
 	},
 ];
