@@ -26,7 +26,7 @@ A esta configuración ideal se le llama canónica, y al par de imágenes que cum
 **_Figura 1_**: Geometría epipolar \
 _[Adil, Elmehdi & Mikou, Mohammed & Mouhsen, Ahmed. (2022). A novel algorithm for distance measurement using stereo camera. CAAI Transactions on Intelligence Technology. 7. n/a-n/a. 10.1049/cit2.12098.]_
 
-Por tanto, el primer paso constituye en extraer las imágenes correspondientes a las cámaras que observann la escena. 
+Por tanto, el primer paso constituye en extraer las imágenes correspondientes a las cámaras que observan la escena. 
 
 **Python: Get Images**
 ```python title="3D_reconstruction.py"
@@ -35,10 +35,14 @@ imageRight = HAL.getImage('right')
 ``` 
 ![Real stereo images](./images_post/3D/real_l_r.png)
 
-
-
-
 ## Preprocesamiento y Detección de Píxeles Característicos 
+
+Una vez se tienen las imágenes extraídas, para facilitar la búsqueda de correspondencias entre ellas, se indentifican puntos caracterósticos. Este paso, aplica el detector de bordes Canny a las imágenes resaltando los píxeles donde hay cambios bruscos de intensidad, correspondientes a los contornos de los objetos. 
+
+![Canny images](./images_post/3D/canny.png)
+
+Los pixeles resaltados en blanco se consideran píxeles característicos y serán los puntos que intentaremos localizar en la otra imagen para obtener la reconstrucción tridimensional. 
+
 
 ## Establecimiento de la Geometría Epipolar
 
