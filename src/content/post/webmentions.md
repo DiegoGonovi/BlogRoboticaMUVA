@@ -4,6 +4,7 @@ description: "This post describes the detailed process of adding webmentions to 
 publishDate: "11 Oct 2023"
 tags: ["webmentions", "astro", "social"]
 updatedDate: 6 December 2024
+draft: true
 ---
 
 ## TLDR

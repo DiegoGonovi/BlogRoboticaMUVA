@@ -3,6 +3,7 @@ title: "How to Create a Font Subset with Transfonter"
 description: "A guide to using Transfonter to create optimized font subsets"
 publishDate: "2025-02-10"
 tags: ["fonts", "optimization", "web performance"]
+draft: true
 ---
 
 ## What is Transfonter?
