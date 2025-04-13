@@ -39,12 +39,30 @@ imageRight = HAL.getImage('right')
 
 Una vez se tienen las imágenes extraídas, para facilitar la búsqueda de correspondencias entre ellas, se indentifican puntos caracterósticos. Este paso, aplica el detector de bordes Canny a las imágenes resaltando los píxeles donde hay cambios bruscos de intensidad, correspondientes a los contornos de los objetos. 
 
+**Python: Canny Filter**
+```python title="3D_reconstruction.py"
+    image_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    img_canny = cv2.Canny(image_gray, l_thr, h_thr)
+``` 
+
 ![Canny images](./images_post/3D/canny.png)
 
-Los pixeles resaltados en blanco se consideran píxeles característicos y serán los puntos que intentaremos localizar en la otra imagen para obtener la reconstrucción tridimensional. 
+Los pixeles resaltados en blanco se consideran píxeles característicos y serán los puntos a localizar en la otra imagen para obtener la reconstrucción tridimensional. 
 
 
 ## Establecimiento de la Geometría Epipolar
+
+Tras la obtención de los pixeles característicos se deben aplicar los conceptos de geometría epipolar para poder proyectar la línea epipolar sobre la imagen derecha. Para ello, se seguirán los pasos descritos a continuación.
+
+1. Conversión de coordenadas (gráfico a óptico): Se transforma las coordenadas de la imagen del píxel de interés al sistema de coordenadas óptico de esa cámara.
+2. Retroproyección (2D a 3D): El punto 2D se retroproyecta hacia el espacio 3D, generando una recta epipolar en 3D que se origina en el centro óptico de la cámara y pasa por el punto de interés.
+3. Proyección en la imagen derecha (3D a 2D): La recta epipolar se proyecta sobre el plano imagen de la otra cámara. Como resultado se obtiene la recta epipolar del pixel de interés definida en la imagen derecha. 
+4. Conversión de coordenadas (óptico a gráfico): La recta 2D proyectada se convierte del sistema óptico de la cámara derecha a coordenadas de píxel. 
+5. Creacción de la franja epipolar: Con el objetivo de facilitar la búsqueda de correspondencias, se determina un rectángulo de 7 píxeles de altura que contiene todos los píxeles de la línea epipolar dibujada.
+
+![Px images](./images_post/3D/px_caract.png)
+![Px images](./images_post/3D/line_epi.png)
+
 
 ## Búsqueda de Correspondencias
 
