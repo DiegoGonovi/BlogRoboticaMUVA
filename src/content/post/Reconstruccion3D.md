@@ -1,7 +1,7 @@
 ---
 title: "Reconstrucción Tridimensional"
 description: "En esta práctica se pretende programar la lógica necesaria para permitir que un robot genere una reconstrucción 3D de la escena que está recibiendo a través de sus cámaras izquierda y derecha. "
-publishDate: "13 Marzo 2025"
+publishDate: "12 Abril 2025"
 tags: [  "robótica",
   "visión por computadora",
   "reconstrucción 3D",
@@ -65,7 +65,9 @@ Tras la obtención de los pixeles característicos se deben aplicar los concepto
 
 
 ## Búsqueda de Correspondencias
-Después de calcular la franja epipolar 
+Después de definir la franja epipolar, se procede a la búsqueda del homólogo, el cual se espera encontrar dentro de dicha franja. Se extrae un parche alrededor del punto de interés original, que actuará como plantilla. Luego, se extrae la región correspondiente a la franja epipolar de la imagen derecha. 
+
+Mediante cv2.matchTemplate con el método de Correlación Cruzada Normalizada, se desliza la plantilla izquierda sobre la franja derecha, buscando la zona de máxima similitud.
 
 **Python: Homologue Search**
 ```python title="3D_reconstruction.py"
@@ -79,5 +81,11 @@ patch_l = imageLeft[y_px - block_size//2:y_px + block_size//2 + 1, x_px - block_
 res = cv2.matchTemplate(patch_r, patch_l, cv2.TM_CCORR_NORMED)
 _, max_val, _, max_loc = cv2.minMaxLoc(res)
 ```
+
+La ubicación que devuelve el valor máximo de correlación dentro de esa franja se considera la posición del punto homólogo en la imagen derecha. Además, se define un umbral de rechazo por debajo del 0.9 para descartar aquellas correlaciones ruidosas o erróneas. 
+
+![Px images](./images_post/3D/homol.png)
+
+
 
 ## Triangulación y Generación de la Nube de Puntos Tridimensional
