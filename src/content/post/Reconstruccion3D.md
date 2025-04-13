@@ -61,7 +61,7 @@ Tras la obtención de los pixeles característicos se deben aplicar los concepto
 4. **Conversión de coordenadas (óptico a gráfico):** La recta 2D proyectada se convierte del sistema óptico de la cámara derecha a coordenadas de píxel. 
 5. **Creacción de la franja epipolar:** Con el objetivo de facilitar la búsqueda de correspondencias, se determina un rectángulo de 7 píxeles de altura que contiene todos los píxeles de la línea epipolar dibujada.
 
-![Px images](./images_post/3D/line_epi.png)
+![Linea Epi](./images_post/3D/line_epi.png)
 
 
 ## Búsqueda de Correspondencias
