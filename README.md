@@ -2,7 +2,7 @@
   <img alt="Astro Citrus logo" src="https://github.com/ArtemKutsan/astro-citrus/blob/main/src/assets/images/logo.svg" width="70" />
 </div>
 <h1 align="center">
-  Astro Citrus
+  Blog Diego González Oviaño, Robótica MUVA
 </h1>
 
 Astro Citrus is a simple opinionated starter built with the Astro framework. Use it to create an easy-to-use blog or website.
