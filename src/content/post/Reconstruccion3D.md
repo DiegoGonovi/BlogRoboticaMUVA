@@ -10,8 +10,8 @@ tags: [  "robótica",
 coverImage:
   src: "./images_post/3D/real.png"
   alt: "Reconstrucción 3D"
-    <width: 1200  # Sin unidades (se asume px)
-  height: 630
+  width: "1200"  # Sin unidades (se asume px)
+  height: "630"
 draft: false
 ---
 
