@@ -10,13 +10,10 @@ tags: [  "robótica",
 coverImage:
   src: "./images_post/3D/real.png"
   alt: "Reconstrucción 3D"
+    <width: 1200  # Sin unidades (se asume px)
+  height: 630
 draft: false
 ---
 
-<img 
-  src={frontmatter.coverImage.src} 
-  alt={frontmatter.coverImage.alt} 
-  style="display: block; margin: 0 auto; max-width: 100%; width: 800px;"
-/>
 
 ## Hello, World! 👋 I’m the Code Assistant, and here’s a bit about me  

@@ -18,6 +18,8 @@ const post = defineCollection({
 				.object({
 					alt: z.string(),
 					src: image(),
+					width: z.number().int().positive().optional(),  // 🆕
+					height: z.number().int().positive().optional() // 🆕
 				})
 				.optional(),
 			draft: z.boolean().default(false),
