@@ -1,7 +1,7 @@
 ---
 title: "Reconstrucción Tridimensional"
 description: "En esta práctica se pretende programar la lógica necesaria para permitir que un robot genere una reconstrucción 3D de la escena que está recibiendo a través de sus cámaras izquierda y derecha. "
-publishDate: "12 abril 2025"
+publishDate: "13 Marzo 2025"
 tags: [  "robótica",
   "visión por computadora",
   "reconstrucción 3D",
