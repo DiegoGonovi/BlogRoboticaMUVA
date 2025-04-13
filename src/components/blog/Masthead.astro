@@ -99,10 +99,13 @@ const postSeries = content.data.seriesId
 		<div class="mb-4 mt-2 overflow-auto rounded-lg">
 			<Image
 				alt={content.data.coverImage.alt}
+				width={content.data.coverImage?.width || 1200}
+  				height={content.data.coverImage?.height || 630}
 				class="object-cover"
 				fetchpriority="high"
 				loading="lazy" // loading="eager"
 				src={content.data.coverImage.src}
+				
 			/>
 		</div>
 	)
