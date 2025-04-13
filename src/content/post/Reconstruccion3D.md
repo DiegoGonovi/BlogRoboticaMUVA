@@ -72,14 +72,10 @@ Mediante cv2.matchTemplate con el método de Correlación Cruzada Normalizada, s
 **Python: Homologue Search**
 ```python title="3D_reconstruction.py"
 # Parche  en imagen epi derecha
-patch_r = imageRight[y_epi_min:y_epi_max + 1, 
-                x_epi_min:x_epi_max + 1]
+    patch_r = imageRight[y_epi_min:y_epi_max + 1, x_epi_min:x_epi_max + 1]
 
-# Parche en imagen izquierda
-patch_l = imageLeft[y_px - block_size//2:
-                y_px + block_size//2 + 1, 
-                x_px - block_size//2:
-                x_px + block_size//2 + 1]
+    # Parche en imagen izquierda
+    patch_l = imageLeft[y_px - block_size//2:y_px + block_size//2 + 1, x_px - block_size//2:x_px + block_size//2 + 1]
 
 # Búsqueda de homólogo
 res = cv2.matchTemplate(patch_r, patch_l, cv2.TM_CCORR_NORMED)
@@ -89,7 +85,5 @@ _, max_val, _, max_loc = cv2.minMaxLoc(res)
 La ubicación que devuelve el valor máximo de correlación dentro de esa franja se considera la posición del punto homólogo en la imagen derecha. Además, se define un umbral de rechazo por debajo del 0.9 para descartar aquellas correlaciones ruidosas o erróneas. 
 
 ![Homologo](./images_post/3D/homol.png)
-
-
 
 ## Triangulación y Generación de la Nube de Puntos Tridimensional
