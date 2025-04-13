@@ -34,9 +34,6 @@ export default defineConfig({
       applyBaseStyles: false,
       nesting: true,
     }),
-    markdoc({
-      allowHTML: true
-    }),
     sitemap(),
     mdx(),
     robotsTxt(),
