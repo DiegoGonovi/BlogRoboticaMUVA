@@ -7,6 +7,7 @@ orderInSeries: 1
 featured: false
 tags: ["example", "series", "citrus"]
 ogImage: ""
+draft: true
 ---
 
 ## Introducing

@@ -8,6 +8,7 @@ updatedDate: "22 December 2024"
 featured: false
 tags: ["example", "series", "citrus"]
 ogImage: ""
+draft: true
 ---
 
 ## Getting Started
