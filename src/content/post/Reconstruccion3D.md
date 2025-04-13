@@ -106,7 +106,7 @@ Para encontrar los puntos en cada recta que minimizan la distancia entre ellas, 
 
 ```math
 t(v_1 · v_1) - s(v_1 · v_2) = -(v_1 · w_0)
-t(v_1 · v_2) - s(v_2 · v_2) = -(v_2· w_0)
+t(v_1 · v_2) - s(v_2 · v_2) = -(v_2 · w_0)
 ```
 
 Una vez obtenidos t y s, se calculan los puntos en cada recta y la estimación final de la coordenada 3D se toma como el punto medio del segmento los une. 
