@@ -88,7 +88,7 @@ _, max_val, _, max_loc = cv2.minMaxLoc(res)
 
 La ubicación que devuelve el valor máximo de correlación dentro de esa franja se considera la posición del punto homólogo en la imagen derecha. Además, se define un umbral de rechazo por debajo del 0.9 para descartar aquellas correlaciones ruidosas o erróneas. 
 
-![Px images](./images_post/3D/homol.png)
+![Homologo](./images_post/3D/homol.png)
 
 
 
