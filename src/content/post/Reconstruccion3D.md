@@ -112,3 +112,5 @@ t(v_1 · v_2) - s(v_2 · v_2) = -(v_2 · w_0)
 Una vez obtenidos t y s, se calculan los puntos en cada recta y la estimación final de la coordenada 3D se toma como el punto medio del segmento los une. 
 
 Para minimizar los outliers se situa un umbral de error en 10 milímetros, descartando todas aquellas distancias mayores de estas.
+
+![3D reconstr](./images_post/3D/3d_reconst.png)
