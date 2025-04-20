@@ -114,4 +114,6 @@ Para minimizar los outliers se situa un umbral de error en 10 milímetros, desca
 
 ![3D reconstr](./images_post/3D/3d_reconst.png)
 
-<YouTube id="https://www.youtube.com/shorts/cOSstNwzZuE" />
+## Vídeos
+[Homologos video](https://youtu.be/Mp3ZtsB_ksY)
+[3d final video](https://youtube.com/shorts/cOSstNwzZuE)
