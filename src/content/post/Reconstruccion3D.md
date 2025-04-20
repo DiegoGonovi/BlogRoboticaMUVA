@@ -114,3 +114,5 @@ Una vez obtenidos t y s, se calculan los puntos en cada recta y la estimación f
 Para minimizar los outliers se situa un umbral de error en 10 milímetros, descartando todas aquellas distancias mayores de estas.
 
 ![3D reconstr](./images_post/3D/3d_reconst.png)
+
+<YouTube id="https://www.youtube.com/shorts/cOSstNwzZuE" />
