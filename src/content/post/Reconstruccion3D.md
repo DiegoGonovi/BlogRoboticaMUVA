@@ -15,6 +15,8 @@ coverImage:
 draft: false
 ---
 
+import { YouTube } from "astro-embed";
+
 
 ## Adquisición de Imágenes Estéreo 📸
 
