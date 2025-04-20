@@ -15,9 +15,6 @@ coverImage:
 draft: false
 ---
 
-import { YouTube } from "astro-embed";
-
-
 ## Adquisición de Imágenes Estéreo 📸
 
 La visión estéreo usa dos cámaras que capturan la escena desde ángulos ligeramente distintos. En el escenario de la simulación estas cámaras se encuentran perfectamente alineadas de manera que, sus ejes ópticos son paralelos entre sí, sus planos de imagen son coplanares y las líneas epipolares son horizontales. 
@@ -118,5 +115,3 @@ Para minimizar los outliers se situa un umbral de error en 10 milímetros, desca
 ![3D reconstr](./images_post/3D/3d_reconst.png)
 
 <YouTube id="https://www.youtube.com/shorts/cOSstNwzZuE" />
-
-hola
