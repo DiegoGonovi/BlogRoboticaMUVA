@@ -13,9 +13,6 @@ import remarkDirective from "remark-directive"; /* handle ::: directives as node
 import { remarkAdmonitions } from "./src/plugins/remark-admonitions"; /* add admonitions */
 import { remarkReadingTime } from "./src/plugins/remark-reading-time";
 
-// Youtube
-import youtube from '@astrojs/youtube';
-
 // Rehype plugins
 import rehypeExternalLinks from "rehype-external-links";
 import rehypeUnwrapImages from "rehype-unwrap-images";
@@ -32,7 +29,6 @@ export default defineConfig({
     domains: ["webmention.io"],
   },
   integrations: [
-    youtube(),
     icon(),
     tailwind({
       applyBaseStyles: false,
