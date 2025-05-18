@@ -9,9 +9,9 @@ tags: [  "robótica",
   "conducción autónoma",]
 coverImage:
   src: "./images_post/FollowLine/portada_car.png"
-  alt: "Reconstrucción 3D"
+  alt: "Sigue Líneas"
   width: 1200  # Sin unidades (se asume px)
-  height: 500
+  height: 600
 draft: false
 ---
 
