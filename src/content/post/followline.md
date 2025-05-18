@@ -40,11 +40,13 @@ El primer paso de este reto consiste en definir la región de interés a partir 
 
 Para ello, se construye una interfaz interactiva que permite ajustar dinámicamente los umbrales HSV sobre una captura del circuito, facilitando la selección precisa de los valores óptimos para detectar la línea roja de forma robusta. 
 
-![Filtro HSV](./images_post/FollowLine/hsv1_hsv2.png)
+![Filtro HSV](./images_post/FollowLine/hsv1_hsv2_redimensionada.png)
 
 Una vez se aplica el filtro de color, se detecta el área del contorno visualizado correspondiente a la línea roja sobre el asfalto. A partir de este contorno se calcula su centroide, que sirve como referencia visual para estimar la desviación del vehículo respecto al eje central deseado. No obstante, dado que la cámara no está alineada exactamente con el centro del vehículo, se aplica una corrección de dos píxeles para compensar este desplazamiento.
 
 Además, en lugar de calcular el error sobre la zona más cercana al vehículo, se define una franja superior, cercana al horizonte visual, que permite anticipar cambios en la trayectoria y simular un comportamiento más similar al de un conductor humano.
+
+![Mascara ROI](./images_post/FollowLine/mask_mix_redimensionada.png)
 
 
 ## Control cinemático 🚗
