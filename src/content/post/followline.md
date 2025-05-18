@@ -18,7 +18,7 @@ draft: false
 ## Controlador PID 🔧
 El controlador PID (Proporcional–Integral–Derivativo) es un algoritmo de control ampliamente utilizado en robótica para lograr la estabilidad y precisión en el movimiento de los robots. Utilizan un mecanismo de control de retroalimentación en bucle cerrado que ajusta continuamente las salidas en función de la diferencia entre un punto de ajuste deseado y el valor medido. 
 
-Funciona ajustando continuamente la salida del sistema en función de tres términos: proporcional (P), integral (I) y derivativo (D). A continuación, en la Figura 1, se adjunta el diagrama estándar de un controlador PID donde se pueden observar los componentes mencionados, junto con las expresiones matemáticas que definen su comportamiento.
+Funciona ajustando la salida en función de tres términos: proporcional (P), integral (I) y derivativo (D). A continuación, en la Figura 1, se adjunta el diagrama estándar de un controlador PID donde se pueden observar los componentes mencionados, junto con las expresiones matemáticas que definen su comportamiento.
 
 ![Diagrama PID](./images_post/FollowLine/diagrama_pid.png)
 **_Figura 1_**: Diagrama Controlador PID \
@@ -30,13 +30,22 @@ _[Waseem, U. (2023, 20 junio). PID Controller & Loops: A Comprehensive Guide to 
 - Control Integral (I): Aborda cualquier error persistente o desviaciones a largo plazo del punto de ajuste acumulando el error a lo largo del tiempo. Al integrar la señal de error, el término I asegura que el sistema se acerque y mantenga el punto de ajuste con precisión, eliminando los errores en estado estacionario. Esto es útil para eliminar errores de deriva o fluctuaciones en el movimiento. 
 
 
-Un controlador PID calcula de forma continua una señal de error. En este contexto, el error representa cuánto se ha desviado el coche respecto a la trayectoria que debería seguir. A partir de esta información, el controlador ajusta la señal de control para corregir dicha desviación acorde a tres términos fundamentales: Ganancia Proporcional (Kp), proporción de la señal de error que contribuye a la salida del controlador. Ganancia Derivativa (Kd), anticipa el comportamiento futuro del error basado en su tasa actual de cambio. Ganancia Integral (Ki), acumula errores pasados y corrige el desvío sostenido.
+Un controlador PID calcula de forma continua una señal de error. En este contexto, el error representa cuánto se ha desviado el coche respecto a la trayectoria que debería seguir. A partir de esta información, el controlador ajusta la señal de control para corregir dicha desviación acorde a tres términos introducidos: Ganancia Proporcional (Kp), proporción de la señal de error que contribuye a la salida del controlador. Ganancia Derivativa (Kd), anticipa el comportamiento futuro del error basado en su tasa actual de cambio. Ganancia Integral (Ki), acumula errores pasados y corrige el desvío sostenido.
 
 La configuración de estas tres ganancias influye directamente en el comportamiento del sistema, provocando oscilaciones ante valores demasiado altos o respuestas lentas e imprecisas cuando lo valores son demasiado bajos. La salida resultante se aplica a los actuadores del sistema, modificando la velocidad o el ángulo de giro para mantener una conducción estable y precisa. 
 
 
 ## Obtención de la región de interés 🎯
-(Recorte del horizonte + filtro HSV)
+El primer paso de este reto consiste en definir la región de interés a partir de la cual se calculará el error de seguimiento. Dado que el objetivo es que el coche siga la línea roja del circuito, se aplica un filtro en el espacio de color HSV que permite segmentarla con precisión. 
+
+Para ello, se construye una interfaz interactiva que permite ajustar dinámicamente los umbrales HSV sobre una captura del circuito, facilitando la selección precisa de los valores óptimos para detectar la línea roja de forma robusta. 
+
+![Filtro HSV](./images_post/FollowLine/hsv1_hsv2.png)
+
+Una vez se aplica el filtro de color, se detecta el área del contorno visualizado correspondiente a la línea roja sobre el asfalto. A partir de este contorno se calcula su centroide, que sirve como referencia visual para estimar la desviación del vehículo respecto al eje central deseado. No obstante, dado que la cámara no está alineada exactamente con el centro del vehículo, se aplica una corrección de dos píxeles para compensar este desplazamiento.
+
+Además, en lugar de calcular el error sobre la zona más cercana al vehículo, se define una franja superior, cercana al horizonte visual, que permite anticipar cambios en la trayectoria y simular un comportamiento más similar al de un conductor humano.
+
 
 ## Control cinemático 🚗
 (Cálculo de error lateral/angulación y generación de comandos)
