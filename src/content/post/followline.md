@@ -77,7 +77,7 @@ w = max(min(w, MAX_W), MIN_W)
 HAL.setW(w)
 ```
 
-2. **Controladores PD para la velocidad**
+2. **Controladores PD para la velocidad lineal (v)**
 
 En el caso de la velocidad lineal, se opta por un controlador PD en lugar de PDI. La componente proporcional permite ajustar la velocidad en función de la magnitud del error, mientras que la derivativa ayuda a anticipar cambios bruscos y a suavizar la transición entre tramos rectos y curvas. En cambio, el uso de un término integral no resulta adecuado en este contexto, ya que su acumulación puede llevar a un sobreimpulso no deseado, especialmente cuando el vehículo pasa por curvas prolongadas.
 
@@ -97,9 +97,52 @@ elif error_sum <= threshold_r:
 Tras programar la lógica de los controladores, se estiman las ganancias de cada uno siguiendo una versión simplificada del método de Ziegler–Nichols. Primero se incrementó el valor proporcional hasta alcanzar un punto de oscilación sostenida, y a partir de ahí se ajustan las constantes derivativa e integral de forma proporcional. Posteriormente, estas ganancias fueron refinadas observando el comportamiento en la simulación, hasta lograr una respuesta rápida, sin oscilaciones excesivas ni sobreimpulsos.
 
 ## Escenarios adversos 👀
+Por último, se contempla un escenario adverso fundamental, la pérdida temporal de la línea roja en la imagen, ya sea por condiciones de iluminación, errores de segmentación o curvas extremadamente cerradas. En estos casos, el sistema no detecta contornos y, por tanto, no puede calcular el error de seguimiento ni aplicar los controladores descritos anteriormente.
+
+Para evitar que el coche se detenga abruptamente o se descontrole, se implementa un comportamiento reactivo básico. El vehículo avanza lentamente girando en la dirección opuesta al último error registrado, con el objetivo de recuperar visualmente la línea. Aunque se trata de una solución simple, permite cierta tolerancia frente a fallos puntuales en la percepción.
+
+```python title="Follow_line.py
+if not contours:
+    if error_w < 0:
+        HAL.setV(2)
+        HAL.setW(1.5)
+    else:
+        HAL.setV(2)
+        HAL.setW(-1.5)
+
+```
+
+En la sección de vídeos se adjuntan varias grabaciones que ilustran el comportamiento del vehículo simple en distintos circuitos. Estas simulaciones permiten observar la respuesta del controlador PID, la adaptación de la velocidad y la robustez del sistema ante curvas o pérdidas temporales de la línea.
 
 ## Transición a modelo Ackermann 🏎️
 
+Una vez validado el comportamiento del controlador sobre el modelo de coche de dinámica simple, se aborda la transición al modelo Ackermann, más cercano a un vehículo real. A diferencia del modelo anterior, el coche Ackermann solo permite que las ruedas delanteras giren, mientras que las traseras siguen una trayectoria fija, lo que implica una respuesta más realista, pero también más exigente desde el punto de vista del control.
+
+Como consecuencia, pequeñas desviaciones en el cálculo del giro pueden traducirse en trayectorias incorrectas, especialmente en curvas cerradas o cambios de dirección rápidos. Para compensar esta mayor sensibilidad, se han introducido varias mejoras clave en la lógica de control. 
+
+- Se mantiene el controlador PDI para el giro, pero se le añade un filtro exponencial a la derivada para evitar oscilaciones indeseadas. 
+
+```python title="Follow_line.py
+d_w_filt = 0.7 * d_w_filt + 0.3 * d_raw
+```
+- Se introduce una zona muerta para evitar correcciones pequeñas e innecesarias cuando el error angular es insignificante. 
+```python title="Follow_line.py
+if abs(error_w) < 3:
+    error_w = 0
+```
+- La señal de giro final w se suaviza mediante una rampa exponencial, lo que evita giros abruptos y mejora la estabilidad del coche. 
+```python title="Follow_line.py
+w = 0.7 * w_prev + 0.3 * w_cmd
+```
+- En cuanto a la velocidad, se mantiene la lógica adaptativa con dos controladores PD, uno para curvas y otro para rectas. No obstante, la transición entre velocidades se modula usando un límite máximo de aceleración por ciclo para evitar picos bruscos.
+
+```python title="Follow_line.py
+v = v_prev + np.clip(v_cmd - v_prev, -dv_max, dv_max)
+```
+
+Este conjunto de ajustes permite que el coche con dinámica Ackermann complete el circuito simple de forma estable, simulando un comportamiento realista y mostrando la capacidad del controlador para adaptarse a restricciones físicas más estrictas. No obstante, el tiempo por vuelta es considerablemente mayor, ya que es necesario reducir la velocidad para evitar que el coche se vuelva excesivamente reactivo. La idea futura es optimizar esta limitación mediante mejoras en los controladores y en el filtrado de la señal. 
+
+El comportamiento actual puede observarse en la correspondiente grabación incluida en la sección de vídeos.
 
 ## Vídeos 🎥
 1. [Coche de dinámica simple en el circuito simple.](https://youtu.be/JZIK89bfv90)
