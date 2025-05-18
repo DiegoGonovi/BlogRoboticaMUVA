@@ -55,19 +55,36 @@ Con el objetivo de facilitar la depuración y el análisis del comportamiento de
 ![Depuracion Visual](./images_post/FollowLine/pantallafinal.png)
 
 
-
-
 ## Control cinemático 🚗
-(Cálculo de error lateral/angulación y generación de comandos)
+El sistema de control se compone de dos tipos de controladores, diseñados para regular el movimiento del vehículo a partir del error visual calculado.
+1.  **Controlador PDI para el giro (w)**
+
+Para corregir la desviación respecto a la línea, se implementa un controlador PDI. Este se aplica directamente sobre el error lateral obtenido. 
+
+**Python: PDI angular**
+```
+def pdi_angular(error_w, error_pre_w, error_acc_w, Kp_w, Ki_w, Kd_w):
+    d_w = error_w - error_pre_w
+    error_acc_w += error_w
+    w = -Kp_w * error_w - Ki_w * error_acc_w - Kd_w * d_w
+    return w, error_w, error_acc_w
+``` 
+
+Además, el ángulo de giro resultante se limita con un umbral para evitar giros excesivos e irreales en un contexto realista. 
+
+```
+w = max(min(w, MAX_W), MIN_W)
+HAL.setW(w)
+```
+
+## Escenarios adversos 👀
 
 ## Transición a modelo Ackermann 🏎️
 
-## Visualización en tiempo real 👀
-(HUD, mini‐mapa y métricas)
 
 ## Vídeos 🎥
 1. [Coche de dinámica simple en el circuito simple.](https://youtu.be/JZIK89bfv90)
 2. [Coche de dinámica simple en el circuito Montreal.](https://youtu.be/BtUnzcoujMU)
-3. [Coche de dinámica simple en el circuito Montmelo.](https://youtu.be/Asdo_OwhfH4)
+3. [Coche de dinámica simple en el circuito Montmelo.](https://youtu.be/I7RpnVOXL80)
 4. [Coche de dinámica simple en el circuito Nürburgring.](https://youtu.be/_HtSosXdhNs)
 5. [Coche de dinámica Ackermann en el circuito simple.](https://youtu.be/53Szezdb8bA)
