@@ -48,6 +48,14 @@ Además, en lugar de calcular el error sobre la zona más cercana al vehículo, 
 
 ![Mascara ROI](./images_post/FollowLine/mask_mix_redimensionada.png)
 
+Por tanto, tras obtener la región de interés y el centroide de la línea roja, se calcula el error de seguimiento como la diferencia entre el centro de la imagen y la coordenada x del centroide. Este error indica cuánto se ha desviado el coche de la trayectoria ideal y será la entrada principal de los controladores, traduciéndose en correcciones sobre el ángulo de giro y la velocidad. 
+
+Con el objetivo de facilitar la depuración y el análisis del comportamiento del sistema, se incorporan varios elementos visuales en la interfaz. Un punto amarillo, que representa el centroide de la línea roja detectada, una línea azul vertical, que inidca el centro corregido de la imagen, sirviendo como referencia para el cálculo del error y valores numéricos del error de seguimiento, el ángulo de giro y velocidad lineal. 
+
+![Depuracion Visual](./images_post/FollowLine/pantallafinal.png)
+
+
+
 
 ## Control cinemático 🚗
 (Cálculo de error lateral/angulación y generación de comandos)
