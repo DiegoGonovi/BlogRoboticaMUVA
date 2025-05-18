@@ -25,7 +25,8 @@ Funciona ajustando la salida en función de tres términos: proporcional (P), in
 _[Waseem, U. (2023, 20 junio). PID Controller & Loops: A Comprehensive Guide to Understanding and Implementation. Wevolver. https://www.wevolver.com/article/pid-loops-a-comprehensive-guide-to-understanding-and-implementation.]_
 
 - Control Proporcional (P): Responde al error presente, generando una salida proporcional a su magnitud. Al aplicar una acción correctiva inmediata, el término P minimiza rápidamente los errores. Esto ayuda a que el robot se dirija hacia el punto deseado rápidamente. 
-- Control Derivado (D): Prevé oscilaciones y movimientos bruscos al tener en cuenta la velocidad de cambio del error. Este enfoque amortigua las oscilaciones y estabiliza el sistema, especialmente durante las respuestas transitorias. Por tanto, ayuda a que el movimiento sea suave y preciso. 
+
+- Control Derivativo (D): Prevé oscilaciones y movimientos bruscos al tener en cuenta la velocidad de cambio del error. Este enfoque amortigua las oscilaciones y estabiliza el sistema, especialmente durante las respuestas transitorias. Por tanto, ayuda a que el movimiento sea suave y preciso. 
 
 - Control Integral (I): Aborda cualquier error persistente o desviaciones a largo plazo del punto de ajuste acumulando el error a lo largo del tiempo. Al integrar la señal de error, el término I asegura que el sistema se acerque y mantenga el punto de ajuste con precisión, eliminando los errores en estado estacionario. Esto es útil para eliminar errores de deriva o fluctuaciones en el movimiento. 
 
@@ -50,7 +51,7 @@ Además, en lugar de calcular el error sobre la zona más cercana al vehículo, 
 
 Por tanto, tras obtener la región de interés y el centroide de la línea roja, se calcula el error de seguimiento como la diferencia entre el centro de la imagen y la coordenada x del centroide. Este error indica cuánto se ha desviado el coche de la trayectoria ideal y será la entrada principal de los controladores, traduciéndose en correcciones sobre el ángulo de giro y la velocidad. 
 
-Con el objetivo de facilitar la depuración y el análisis del comportamiento del sistema, se incorporan varios elementos visuales en la interfaz. Un punto amarillo, que representa el centroide de la línea roja detectada, una línea azul vertical, que inidca el centro corregido de la imagen, sirviendo como referencia para el cálculo del error y valores numéricos del error de seguimiento, el ángulo de giro y velocidad lineal. 
+Con el objetivo de facilitar la depuración y el análisis del comportamiento del sistema, se incorporan varios elementos visuales en la interfaz. Un punto amarillo, que representa el centroide de la línea roja detectada, una línea azul vertical, que indica el centro corregido de la imagen, sirviendo como referencia para el cálculo del error y valores numéricos del error de seguimiento, el ángulo de giro y velocidad lineal. 
 
 ![Depuracion Visual](./images_post/FollowLine/pantallafinal.png)
 
@@ -79,7 +80,7 @@ HAL.setW(w)
 
 2. **Controladores PD para la velocidad lineal (v)**
 
-En el caso de la velocidad lineal, se opta por un controlador PD en lugar de PDI. La componente proporcional permite ajustar la velocidad en función de la magnitud del error, mientras que la derivativa ayuda a anticipar cambios bruscos y a suavizar la transición entre tramos rectos y curvas. En cambio, el uso de un término integral no resulta adecuado en este contexto, ya que su acumulación puede llevar a un sobreimpulso no deseado, especialmente cuando el vehículo pasa por curvas prolongadas.
+En el caso de la velocidad lineal, se opta por un controlador PD en lugar de PDI. El componente proporcional permite ajustar la velocidad en función de la magnitud del error, mientras que la derivativa ayuda a anticipar cambios bruscos y a suavizar la transición entre tramos rectos y curvas. En cambio, el uso de un término integral no resulta adecuado en este contexto, ya que su acumulación puede llevar a un sobreimpulso no deseado, especialmente cuando el vehículo pasa por curvas prolongadas.
 
 Con el fin de optimizar la velocidad máxima sin comprometer la estabilidad, se definen dos pares de controladores de velocidad. Uno para tramos rectos, donde se permite una velocidad más alta, y otro para curvas, donde la velocidad se reduce de forma agresiva. Esta estrategia permite adaptar dinámicamente la velocidad al trazado del circuito, logrando un mayor rendimiento global. 
 
@@ -129,7 +130,7 @@ d_w_filt = 0.7 * d_w_filt + 0.3 * d_raw
 if abs(error_w) < 3:
     error_w = 0
 ```
-- La señal de giro final w se suaviza mediante una rampa exponencial, lo que evita giros abruptos y mejora la estabilidad del coche. 
+- La señal de giro final (w) se suaviza mediante una rampa exponencial, lo que evita giros abruptos y mejora la estabilidad del coche. 
 ```python title="Follow_line.py"
 w = 0.7 * w_prev + 0.3 * w_cmd
 ```
