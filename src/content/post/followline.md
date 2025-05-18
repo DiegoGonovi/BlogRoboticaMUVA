@@ -62,7 +62,7 @@ El sistema de control se compone de dos tipos de controladores, diseñados para 
 Para corregir la desviación respecto a la línea, se implementa un controlador PDI. Este se aplica directamente sobre el error lateral obtenido. 
 
 **Python: PDI angular.**
-```python title="Follow_line.py
+```python title="Follow_line.py"
 def pdi_angular(error_w, error_pre_w, error_acc_w, Kp_w, Ki_w, Kd_w):
     d_w = error_w - error_pre_w
     error_acc_w += error_w
@@ -72,7 +72,7 @@ def pdi_angular(error_w, error_pre_w, error_acc_w, Kp_w, Ki_w, Kd_w):
 
 Además, el ángulo de giro calculado se restringe dentro de un umbral definido para evitar maniobras excesivas o irreales, garantizando así un comportamiento más coherente con las limitaciones físicas de un vehículo real.
 
-```python title="Follow_line.py
+```python title="Follow_line.py"
 w = max(min(w, MAX_W), MIN_W)
 HAL.setW(w)
 ```
@@ -85,7 +85,7 @@ Con el fin de optimizar la velocidad máxima sin comprometer la estabilidad, se 
 
 El cambio entre ambos controladores se determina mediante la suma de los errores más recientes junto a un umbral de decisión. Si esta suma es baja, se interpreta que el vehículo está siguiendo una recta y se puede aumentar la velocidad. En caso contrario, se asume una curva o una pérdida de precisión, y se reduce la velocidad.
 
-```python title="Follow_line.py
+```python title="Follow_line.py"
 if abs(error_w) > threshold_c:
     # En curvas: velocidad baja
     v, error_pre_v = pd_velocidad_curvas(error_w, error_pre_v, Kp_v_c, Kd_v_c, v_min_c, v_max_c)
@@ -101,7 +101,7 @@ Por último, se contempla un escenario adverso fundamental, la pérdida temporal
 
 Para evitar que el coche se detenga abruptamente o se descontrole, se implementa un comportamiento reactivo básico. El vehículo avanza lentamente girando en la dirección opuesta al último error registrado, con el objetivo de recuperar visualmente la línea. Aunque se trata de una solución simple, permite cierta tolerancia frente a fallos puntuales en la percepción.
 
-```python title="Follow_line.py
+```python title="Follow_line.py"
 if not contours:
     if error_w < 0:
         HAL.setV(2)
@@ -109,7 +109,6 @@ if not contours:
     else:
         HAL.setV(2)
         HAL.setW(-1.5)
-
 ```
 
 En la sección de vídeos se adjuntan varias grabaciones que ilustran el comportamiento del vehículo simple en distintos circuitos. Estas simulaciones permiten observar la respuesta del controlador PID, la adaptación de la velocidad y la robustez del sistema ante curvas o pérdidas temporales de la línea.
@@ -122,21 +121,21 @@ Como consecuencia, pequeñas desviaciones en el cálculo del giro pueden traduci
 
 - Se mantiene el controlador PDI para el giro, pero se le añade un filtro exponencial a la derivada para evitar oscilaciones indeseadas. 
 
-```python title="Follow_line.py
+```python title="Follow_line.py"
 d_w_filt = 0.7 * d_w_filt + 0.3 * d_raw
 ```
 - Se introduce una zona muerta para evitar correcciones pequeñas e innecesarias cuando el error angular es insignificante. 
-```python title="Follow_line.py
+```python title="Follow_line.py"
 if abs(error_w) < 3:
     error_w = 0
 ```
 - La señal de giro final w se suaviza mediante una rampa exponencial, lo que evita giros abruptos y mejora la estabilidad del coche. 
-```python title="Follow_line.py
+```python title="Follow_line.py"
 w = 0.7 * w_prev + 0.3 * w_cmd
 ```
 - En cuanto a la velocidad, se mantiene la lógica adaptativa con dos controladores PD, uno para curvas y otro para rectas. No obstante, la transición entre velocidades se modula usando un límite máximo de aceleración por ciclo para evitar picos bruscos.
 
-```python title="Follow_line.py
+```python title="Follow_line.py"
 v = v_prev + np.clip(v_cmd - v_prev, -dv_max, dv_max)
 ```
 
