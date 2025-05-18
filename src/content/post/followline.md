@@ -61,7 +61,7 @@ El sistema de control se compone de dos tipos de controladores, diseñados para 
 
 Para corregir la desviación respecto a la línea, se implementa un controlador PDI. Este se aplica directamente sobre el error lateral obtenido. 
 
-**Python: PDI angular**
+**Python: PDI angular.**
 ```python title="Follow_line.py
 def pdi_angular(error_w, error_pre_w, error_acc_w, Kp_w, Ki_w, Kd_w):
     d_w = error_w - error_pre_w
@@ -70,12 +70,31 @@ def pdi_angular(error_w, error_pre_w, error_acc_w, Kp_w, Ki_w, Kd_w):
     return w, error_w, error_acc_w
 ``` 
 
-Además, el ángulo de giro resultante se limita con un umbral para evitar giros excesivos e irreales en un contexto realista. 
+Además, el ángulo de giro calculado se restringe dentro de un umbral definido para evitar maniobras excesivas o irreales, garantizando así un comportamiento más coherente con las limitaciones físicas de un vehículo real.
 
-``````python title="Follow_line.py
+```python title="Follow_line.py
 w = max(min(w, MAX_W), MIN_W)
 HAL.setW(w)
 ```
+
+2. **Controladores PD para la velocidad**
+
+En el caso de la velocidad lineal, se opta por un controlador PD en lugar de PDI. La componente proporcional permite ajustar la velocidad en función de la magnitud del error, mientras que la derivativa ayuda a anticipar cambios bruscos y a suavizar la transición entre tramos rectos y curvas. En cambio, el uso de un término integral no resulta adecuado en este contexto, ya que su acumulación puede llevar a un sobreimpulso no deseado, especialmente cuando el vehículo pasa por curvas prolongadas.
+
+Con el fin de optimizar la velocidad máxima sin comprometer la estabilidad, se definen dos pares de controladores de velocidad. Uno para tramos rectos, donde se permite una velocidad más alta, y otro para curvas, donde la velocidad se reduce de forma agresiva. Esta estrategia permite adaptar dinámicamente la velocidad al trazado del circuito, logrando un mayor rendimiento global. 
+
+El cambio entre ambos controladores se determina mediante la suma de los errores más recientes junto a un umbral de decisión. Si esta suma es baja, se interpreta que el vehículo está siguiendo una recta y se puede aumentar la velocidad. En caso contrario, se asume una curva o una pérdida de precisión, y se reduce la velocidad.
+
+```python title="Follow_line.py
+if abs(error_w) > threshold_c:
+    # En curvas: velocidad baja
+    v, error_pre_v = pd_velocidad_curvas(error_w, error_pre_v, Kp_v_c, Kd_v_c, v_min_c, v_max_c)
+elif error_sum <= threshold_r:
+    # En rectas: velocidad alta
+    v, error_pre_v = pd_velocidad_rectas(error_sum, error_pre_v, Kp_v_r, Kd_v_r, v_min_r, v_max_r)
+```
+
+Tras programar la lógica de los controladores, se estiman las ganancias de cada uno siguiendo una versión simplificada del método de Ziegler–Nichols. Primero se incrementó el valor proporcional hasta alcanzar un punto de oscilación sostenida, y a partir de ahí se ajustan las constantes derivativa e integral de forma proporcional. Posteriormente, estas ganancias fueron refinadas observando el comportamiento en la simulación, hasta lograr una respuesta rápida, sin oscilaciones excesivas ni sobreimpulsos.
 
 ## Escenarios adversos 👀
 
