@@ -62,7 +62,7 @@ El sistema de control se compone de dos tipos de controladores, diseñados para 
 Para corregir la desviación respecto a la línea, se implementa un controlador PDI. Este se aplica directamente sobre el error lateral obtenido. 
 
 **Python: PDI angular**
-```
+```python title="Follow_line.py
 def pdi_angular(error_w, error_pre_w, error_acc_w, Kp_w, Ki_w, Kd_w):
     d_w = error_w - error_pre_w
     error_acc_w += error_w
@@ -72,7 +72,7 @@ def pdi_angular(error_w, error_pre_w, error_acc_w, Kp_w, Ki_w, Kd_w):
 
 Además, el ángulo de giro resultante se limita con un umbral para evitar giros excesivos e irreales en un contexto realista. 
 
-```
+``````python title="Follow_line.py
 w = max(min(w, MAX_W), MIN_W)
 HAL.setW(w)
 ```
