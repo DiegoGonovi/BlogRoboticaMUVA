@@ -17,7 +17,7 @@ coverImage:
 draft: false
 ---
 
-## Autolocalización Basada en Marcadores 
+## Sistema de Posicionamiento 🧭
 El uso de marcadores fiduciales como AprilTags permite obtener una localización precisa y robusta mediante técnicas de visión artificial. Esta estrategia se basa en la detección de marcadores visuales cuya geometría y posición en el mundo son conocidas de antemano. A partir de su aparición en la imagen captada por la cámara del robot, es posible estimar la pose relativa del marcador respecto a la cámara utilizando algoritmos como solvePnP.
 
 Gracias a esta estimación y a la cadena de transformaciones geométricas, es posible inferir directamente la posición del robot en el entorno global. De esta forma, se logra un sistema de autolocalización visual sin necesidad de construir o cargar un mapa del entorno, , lo que permite una puesta en marcha más directa y flexible en entornos controlados.
@@ -31,7 +31,7 @@ _[Zhang, Wei & Gong, Liang & Sun, Yefeng & Gao, Bishu & Yu, Chenrui & Liu, Cheng
 Por tanto, a priori, la estimación de la pose del robot se basa en una cadena de transformaciones que relaciona los distintos sistemas de referencia involucrados.
 
 ```math
-RT_mundo_robot = RT{mundo_tag·RT_tag_camara·RT_camara_robot
+RT_mundo_robot = RT_mundo_tag·RT_tag_camara·RT_camara_robot
 ```
 
 ## Detección de marcadores AprilTags 🎯
@@ -46,16 +46,12 @@ Una vez detectado un marcador válido, y conociendo su geometría real en el mun
 
 Dicha matriz se ha construido a partir de los valores proporcionados por el simulador. 
 
-**Python: Matriz de intrínsecos.**
+**Comando: Matriz de intrínsecos.**
 ```python
     ros2 topic echo /turtlebot3/camera/camera_info
 ``` 
-
-
-Una vez detectado un marcador válido, y conociendo su geometría real en el mundo, se procede a la obtennción de la primera transformación, el apriltrag respecto la cámara, no ?
-para ello se necesita la .... 
-
-Una vez detectado un marcador válido, y conociendo su geometría real en el mundo, es posible abordar el siguiente paso: la estimación de su pose relativa respecto a la cámara. Este proceso, basado en la resolución del problema de perspectiva-n-puntos (solvePnP), permite calcular la posición y orientación del marcador en el sistema de coordenadas de la cámara, y constituye la base para la reconstrucción de la localización global del robot.
+Con estos parámetros y asumiendo una lente sin distorsión, se resuelve el problema PnP mediante _cv2.solvePnP_, obteniendo los vectores de rotación y traslación que permiten construir la matriz **RT_tag_cam**. 
+​
 
 ## Vídeo 🎥
 1. [Autolocalización visual basada en marcadores apriltags completa.](https://youtu.be/UpFAeQSnzSg)
