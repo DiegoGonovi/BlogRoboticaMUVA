@@ -42,7 +42,18 @@ Para facilitar la depuración visual y comprobar que la detección de marcadores
 
 ![Colours April Tags](./images_post/AprilTags/tags_colours.png)
 
+Una vez detectado un marcador válido, y conociendo su geometría real en el mundo, se procede a la obtención de la primera transformación, la pose del marcador respecto a la cámara. Para ello, se necesitan las coordenadas 3D reales de las esquinas del marcador, las coordenadas 2D de esas esquinas obtenidas por el detector y La matriz de parámetros intrínsecos de la cámara. 
 
+Dicha matriz se ha construido a partir de los valores proporcionados por el simulador. 
+
+**Python: Matriz de intrínsecos.**
+```python
+    ros2 topic echo /turtlebot3/camera/camera_info
+``` 
+
+
+Una vez detectado un marcador válido, y conociendo su geometría real en el mundo, se procede a la obtennción de la primera transformación, el apriltrag respecto la cámara, no ?
+para ello se necesita la .... 
 
 Una vez detectado un marcador válido, y conociendo su geometría real en el mundo, es posible abordar el siguiente paso: la estimación de su pose relativa respecto a la cámara. Este proceso, basado en la resolución del problema de perspectiva-n-puntos (solvePnP), permite calcular la posición y orientación del marcador en el sistema de coordenadas de la cámara, y constituye la base para la reconstrucción de la localización global del robot.
 
