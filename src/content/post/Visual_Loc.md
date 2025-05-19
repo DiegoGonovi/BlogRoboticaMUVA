@@ -17,7 +17,7 @@ coverImage:
 draft: false
 ---
 
-## Autolocalización Basada en Marcadores
+## Autolocalización Basada en Marcadores 
 El uso de marcadores fiduciales como AprilTags permite obtener una localización precisa y robusta mediante técnicas de visión artificial. Esta estrategia se basa en la detección de marcadores visuales cuya geometría y posición en el mundo son conocidas de antemano. A partir de su aparición en la imagen captada por la cámara del robot, es posible estimar la pose relativa del marcador respecto a la cámara utilizando algoritmos como solvePnP.
 
 Gracias a esta estimación y a la cadena de transformaciones geométricas, es posible inferir directamente la posición del robot en el entorno global. De esta forma, se logra un sistema de autolocalización visual sin necesidad de construir o cargar un mapa del entorno, , lo que permite una puesta en marcha más directa y flexible en entornos controlados.
@@ -34,11 +34,14 @@ Por tanto, a priori, la estimación de la pose del robot se basa en una cadena d
 RT_mundo_robot = RT{mundo_tag·RT_tag_camara·RT_camara_robot
 ```
 
-## Detección de marcadores AprilTags
+## Detección de marcadores AprilTags 🎯
 
 El primer desafío a abordar es la detección de los marcadores AprilTags. Para ello, se emplea el detector _pyapriltags_, capaz de identificar en tiempo real las esquinas de cada marcador y extraer su identificador. Gracias a esta información, es posible acceder a la pose absoluta del marcador en el sistema de coordenadas global obteniendo su posición y orientación en el entorno. 
 
+Para facilitar la depuración visual y comprobar que la detección de marcadores se realiza correctamente, se han añadido varios colores a los bordes de los marcadores detectados.
+
 ![Colours April Tags](./images_post/AprilTags/tags_colours.png)
+
 
 
 Una vez detectado un marcador válido, y conociendo su geometría real en el mundo, es posible abordar el siguiente paso: la estimación de su pose relativa respecto a la cámara. Este proceso, basado en la resolución del problema de perspectiva-n-puntos (solvePnP), permite calcular la posición y orientación del marcador en el sistema de coordenadas de la cámara, y constituye la base para la reconstrucción de la localización global del robot.
