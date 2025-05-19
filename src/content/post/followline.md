@@ -21,7 +21,7 @@ El controlador PID (Proporcional–Integral–Derivativo) es un algoritmo de con
 Funciona ajustando la salida en función de tres términos: proporcional (P), integral (I) y derivativo (D). A continuación, en la Figura 1, se adjunta el diagrama estándar de un controlador PID donde se pueden observar los componentes mencionados, junto con las expresiones matemáticas que definen su comportamiento.
 
 ![Diagrama PID](./images_post/FollowLine/diagrama_pid.png)
-**_Figura 1_**: Diagrama Controlador PID \
+**_Figura 1_**: Diagrama Controlador PID. \
 _[Waseem, U. (2023, 20 junio). PID Controller & Loops: A Comprehensive Guide to Understanding and Implementation. Wevolver. https://www.wevolver.com/article/pid-loops-a-comprehensive-guide-to-understanding-and-implementation.]_
 
 - Control Proporcional (P): Responde al error presente, generando una salida proporcional a su magnitud. Al aplicar una acción correctiva inmediata, el término P minimiza rápidamente los errores. Esto ayuda a que el robot se dirija hacia el punto deseado rápidamente. 
