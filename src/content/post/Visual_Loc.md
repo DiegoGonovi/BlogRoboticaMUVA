@@ -31,12 +31,12 @@ _[Zhang, Wei & Gong, Liang & Sun, Yefeng & Gao, Bishu & Yu, Chenrui & Liu, Cheng
 Por tanto, a priori, la estimación de la pose del robot se basa en una cadena de transformaciones que relaciona los distintos sistemas de referencia involucrados.
 
 <div align="center">
-
 $$
-{}^{W}T_{\text{robot}} = {}^{W}T_{\text{tag}} \cdot {}^{\text{tag}}T_{\text{cam}} \cdot {}^{\text{cam}}T_{\text{robot}}
+{}^{W}T_{robot} = {}^{W}T_{tag} \cdot {}^{tag}T_{cam} \cdot {}^{cam}T_{robot}
 $$
-
 </div>
+
+## Detección de marcadores AprilTags
 
 ## Vídeo 🎥
 2. [Autolocalización visual basada en marcadores apriltags completa.](https://youtu.be/UpFAeQSnzSg)
