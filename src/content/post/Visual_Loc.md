@@ -31,10 +31,17 @@ _[Zhang, Wei & Gong, Liang & Sun, Yefeng & Gao, Bishu & Yu, Chenrui & Liu, Cheng
 Por tanto, a priori, la estimación de la pose del robot se basa en una cadena de transformaciones que relaciona los distintos sistemas de referencia involucrados.
 
 ```math
-RT_{mundo_robot} = RT_{mundi_tag} · RT_{tag_camara} · RT_{camara_robot}
+RT_mundo_robot = RT{mundo_tag·RT_tag_camara·RT_camara_robot
 ```
 
 ## Detección de marcadores AprilTags
+
+El primer desafío a abordar es la detección de los marcadores AprilTags. Para ello, se emplea el detector _pyapriltags_, capaz de identificar en tiempo real las esquinas de cada marcador y extraer su identificador. Gracias a esta información, es posible acceder a la pose absoluta del marcador en el sistema de coordenadas global obteniendo su posición y orientación en el entorno. 
+
+![Colours April Tags](./images_post/AprilTags/tags_colours.png)
+
+
+Una vez detectado un marcador válido, y conociendo su geometría real en el mundo, es posible abordar el siguiente paso: la estimación de su pose relativa respecto a la cámara. Este proceso, basado en la resolución del problema de perspectiva-n-puntos (solvePnP), permite calcular la posición y orientación del marcador en el sistema de coordenadas de la cámara, y constituye la base para la reconstrucción de la localización global del robot.
 
 ## Vídeo 🎥
 1. [Autolocalización visual basada en marcadores apriltags completa.](https://youtu.be/UpFAeQSnzSg)
