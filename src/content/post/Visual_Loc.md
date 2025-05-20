@@ -60,7 +60,7 @@ Para asegurar que la pose calculada con solvePnP es correcta, se realiza una val
 
 Al observar los ejes dibujados sobre la imagen del marcador, se aprecia que no se alinean con el sistema de referencia del simulador. Esto ocurre porque solvePnP devuelve la pose en el sistema óptico de OpenCV, donde el eje Y apunta hacia abajo y el Z hacia delante, lo cual no es compatible con el sistema usado para representar el mundo del robot.
 
-Para resolverlo, se define una matriz de transformación que permite pasar del sistema óptico al sistema de grafos. Esta matriz rota -90° alrededor del eje X y luego -90° alrededor del eje Z, reorientando los ejes para que coincidan la referencia definida, eje X hacia delante, Y hacia la izquierda y Z hacia arriba. 
+Para resolverlo, se define una matriz de transformación que permite pasar del sistema óptico al sistema de referencia (**RT_optical_mundo**). Esta matriz rota -90° alrededor del eje X y luego -90° alrededor del eje Z, reorientando los ejes para que coincidan la referencia definida, eje X hacia delante, Y hacia la izquierda y Z hacia arriba. 
 
 Además, la cámara se encuentra montada sobre el robot. Por tanto, se introduce también la transformación entre la cámara y el robot, permitiendo estimar la pose final del robot en el mundo.
 
@@ -69,6 +69,13 @@ Todas estas transformaciones se encadenan de forma consistente para describir la
 ```math
 RT_robot_mundo = RT_tag_mundo · RT_optical_mundo · RT_cam_tag · RT_optical_mundo⁻¹ · RT_robot_cam
 ```
+
+Dado que se obtiene la RT_tag_cam, y en la cadena de transformaciones se requiere su inversa, es decir, la transformación de la cámara respecto al marcador, **RT_cam_tag**, el único elemento restante para completar correctamente el sistema es la transformación entre la cámara y el robot. Dicha transformación, se obtiene mediante el comando mostrado a continuación.
+
+**Comando: Matriz de transformación Cámara–Robot.**
+```python
+    ros2 run tf2_ros tf2_echo base_link camera_rgb_frame
+``` 
 
 ## Vídeo 🎥
 1. [Autolocalización visual basada en marcadores apriltags completa.](https://youtu.be/UpFAeQSnzSg)
