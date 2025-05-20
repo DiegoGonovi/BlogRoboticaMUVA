@@ -53,7 +53,6 @@ Dicha matriz se ha construido a partir de los valores proporcionados por el simu
 Con estos parámetros y asumiendo una lente sin distorsión, se resuelve el problema PnP mediante _cv2.solvePnP_, obteniendo los vectores de rotación y traslación que permiten construir la matriz **RT_tag_cam**. 
 
 Para asegurar que la pose calculada con solvePnP es correcta, se realiza una validación visual directa. Por un lado, se dibujan los ejes del sistema del marcador sobre la imagen mediante cv2.drawFrameAxes, y además, permite comprobar su orientación. Por otro lado, se proyectan las esquinas 3D reales del marcador sobre la imagen usando cv2.projectPoints, y si estas coinciden con las esquinas detectadas, podemos confiar en que la transformación obtenida describe con precisión la relación entre el marcador y la cámara.
-
 ​![Verificar RT](./images_post/AprilTags/projected_points.png)
 
 # Cadena de Transformaciones
