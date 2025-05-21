@@ -83,6 +83,13 @@ Con todas las transformaciones necesarias obtenidas se realiza el cómputo final
 
 A partir de la matriz final RT_robot_world, se extraen directamente las coordenadas del robot. La posición se obtiene del vector de traslación, y la orientación se calcula por la arcotangente, que corresponde a la rotación en el plano.
 
+**Python: Estimación posición.**
+```python title="Visual_loc.py"
+x_robot, y_robot, _ = RT_final[:3, 3]
+yaw_robot = atan2(RT_final[1,0], RT_final[0,0])
+pose_est = np.array([ x_robot, y_robot,yaw_robot], dtype=np.float32)
+```
+
 En caso de no detectarse ningún marcador visible, la estimación de la posición se realiza mediante odometría. Dado que se conoce la velocidad lineal, el giro angular, se actualiza la pose integrando ambos términos. Este método, aunque funcional, está más expuesto a la acumulación de errores. 
 
 En el vídeo adjunto se aprecia cómo la estimación deriva progresivamente hasta que vuelve a detectar un marcador, momento en que corrige automáticamente la posición estimada.
