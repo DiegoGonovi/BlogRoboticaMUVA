@@ -76,6 +76,7 @@ Dado que se obtiene la RT_tag_cam, y en la cadena de transformaciones se requier
     ros2 run tf2_ros tf2_echo base_link camera_rgb_frame
 ``` 
 
+\
 
 # Estimación de la posición
 
@@ -83,7 +84,6 @@ Con todas las transformaciones necesarias obtenidas se realiza el cómputo final
 
 A partir de la matriz final RT_robot_world, se extraen directamente las coordenadas del robot. La posición se obtiene del vector de traslación, y la orientación se calcula por la arcotangente, que corresponde a la rotación en el plano.
 
-**Python: Estimación posición.**
 ```python title="Visual_loc.py"
 x_robot, y_robot, _ = RT_final[:3, 3]
 yaw_robot = atan2(RT_final[1,0], RT_final[0,0])
