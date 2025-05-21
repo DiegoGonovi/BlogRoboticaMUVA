@@ -76,6 +76,7 @@ Dado que se obtiene la RT_tag_cam, y en la cadena de transformaciones se requier
     ros2 run tf2_ros tf2_echo base_link camera_rgb_frame
 ``` 
 
+
 # Estimación de la posición
 
 Con todas las transformaciones necesarias obtenidas se realiza el cómputo final para estimar la pose del robot en el mundo. El resultado es una matriz homogénea de 4×4 que describe la orientación del robot dentro del sistema global de navegación, permitiendo la integración directa en la tarea de localización.
