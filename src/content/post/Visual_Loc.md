@@ -76,7 +76,7 @@ Dado que se obtiene la RT_tag_cam, y en la cadena de transformaciones se requier
     ros2 run tf2_ros tf2_echo base_link camera_rgb_frame
 ``` 
 
-[\]
+!\
 
 # Estimación de la posición 
 
