@@ -75,6 +75,7 @@ Dado que se obtiene la RT_tag_cam, y en la cadena de transformaciones se requier
 ```python
     ros2 run tf2_ros tf2_echo base_link camera_rgb_frame
 ``` 
+Con todas las transformaciones necesarias obtenidas se realiza el cómputo final.
 
 
 # Estimación de la posición 🌍
@@ -82,6 +83,7 @@ Dado que se obtiene la RT_tag_cam, y en la cadena de transformaciones se requier
 Se busca estimar la pose del robot en el mundo y tras la cadena de trasnformaciones, se obtiene una matriz homogénea de 4×4 que describe la orientación del robot dentro del sistema global de navegación, permitiendo la integración directa en la tarea de localización.
 
 A partir de la matriz final RT_robot_world, se extraen directamente las coordenadas del robot. La posición se obtiene del vector de traslación, y la orientación se calcula por la arcotangente, que corresponde a la rotación en el plano.
+
 
 ```python title="Visual_loc.py"
 x_robot, y_robot, _ = RT_final[:3, 3]
