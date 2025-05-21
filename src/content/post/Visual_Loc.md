@@ -55,7 +55,7 @@ Con estos parámetros y asumiendo una lente sin distorsión, se resuelve el prob
 Para asegurar que la pose calculada con solvePnP es correcta, se realiza una validación visual directa. Por un lado, se dibujan los ejes del sistema del marcador sobre la imagen mediante cv2.drawFrameAxes, y además, permite comprobar su orientación. Por otro lado, se proyectan las esquinas 3D reales del marcador sobre la imagen usando cv2.projectPoints, y si estas coinciden con las esquinas detectadas, podemos confiar en que la transformación obtenida describe con precisión la relación entre el marcador y la cámara.
 ​![Verificar RT](./images_post/AprilTags/projected_points.png)
 
-# Cadena de Transformaciones
+## Cadena de Transformaciones 👓
 
 Al observar los ejes dibujados sobre la imagen del marcador, se aprecia que no se alinean con el sistema de referencia del simulador. Esto ocurre porque solvePnP devuelve la pose en el sistema óptico de OpenCV, donde el eje Y apunta hacia abajo y el Z hacia delante, lo cual no es compatible con el sistema usado para representar el mundo del robot.
 
@@ -75,6 +75,16 @@ Dado que se obtiene la RT_tag_cam, y en la cadena de transformaciones se requier
 ```python
     ros2 run tf2_ros tf2_echo base_link camera_rgb_frame
 ``` 
+
+# Estimación de la posición
+
+Con todas las transformaciones necesarias obtenidas se realiza el cómputo final para estimar la pose del robot en el mundo. El resultado es una matriz homogénea de 4×4 que describe la orientación del robot dentro del sistema global de navegación, permitiendo la integración directa en la tarea de localización.
+
+A partir de la matriz final RT_robot_world, se extraen directamente las coordenadas del robot. La posición se obtiene del vector de traslación, y la orientación se calcula por la arcotangente, que corresponde a la rotación en el plano.
+
+En caso de no detectarse ningún marcador visible, la estimación de la posición se realiza mediante odometría. Dado que se conoce la velocidad lineal, el giro angular, se actualiza la pose integrando ambos términos. Este método, aunque funcional, está más expuesto a la acumulación de errores. 
+
+En el vídeo adjunto se aprecia cómo la estimación deriva progresivamente hasta que vuelve a detectar un marcador, momento en que corrige automáticamente la posición estimada.
 
 ## Vídeo 🎥
 1. [Autolocalización visual basada en marcadores apriltags completa.](https://youtu.be/UpFAeQSnzSg)
