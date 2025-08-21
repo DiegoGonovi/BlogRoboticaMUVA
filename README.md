@@ -7,10 +7,9 @@
 ---
 
 ## 📌 Sobre el proyecto  
+Este repositorio contiene el **código y la estructura** necesarios para generar y publicar un blog en GitHub Pages, enfocado en **robótica y visión por computador**.  
 
-Este blog recopila los proyectos prácticos desarrollados en el **Máster Universitario en Visión Artificial (MUVA)**, enfocados en **robótica y visión por computador**.  
-
-El objetivo es documentar tanto los fundamentos teóricos como las implementaciones llevadas a cabo.  
+El objetivo es documentar tanto los **fundamentos teóricos** como las **implementaciones prácticas** desarrolladas en los proyectos del *Máster Universitario en Visión Artificial (MUVA)*, dentro de la asignatura de Robótica.  
 
 ---
 
@@ -22,4 +21,6 @@ El objetivo es documentar tanto los fundamentos teóricos como las implementacio
 
 ---
 
+_ℹ️ Este repositorio actúa como **soporte técnico** del blog._  
+_Para ver el contenido explicado y con resultados visuales, accede aquí 👉 [Blog de Robótica – MUVA](https://diegogonovi.github.io/BlogRoboticaMUVA/)._  
 
